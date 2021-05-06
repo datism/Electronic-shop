@@ -3,27 +3,27 @@ package Java.Model;
 import javafx.beans.property.*;
 
 public class CellPhone extends Device {
-    private StringProperty kichThuoc;
+    private FloatProperty kichThuoc;
     private IntegerProperty thoiLuongPin;
-    private DoubleProperty doPhanGiaiCamera;
+    private FloatProperty doPhanGiaiCamera;
 
-    public CellPhone(int id,String ten, String hsx, String model, int price, int conlai, String kthuoc, int thoiluong, double dopg)
+    public CellPhone(int id,String ten, String hsx, String model, int price, int conlai, float kthuoc, int thoiluong, float dopg)
     {
         super(id,ten, hsx, model,price, conlai);
-        this.kichThuoc = new SimpleStringProperty(kthuoc);
+        this.kichThuoc = new SimpleFloatProperty(kthuoc);
         this.thoiLuongPin = new SimpleIntegerProperty(thoiluong);
-        this.doPhanGiaiCamera = new SimpleDoubleProperty(dopg);
+        this.doPhanGiaiCamera = new SimpleFloatProperty(dopg);
     }
 
-    public String getKichThuoc() {
+    public float getKichThuoc() {
         return kichThuoc.get();
     }
 
-    public StringProperty kichThuocProperty() {
+    public FloatProperty kichThuocProperty() {
         return kichThuoc;
     }
 
-    public void setKichThuoc(String kichThuoc) {
+    public void setKichThuoc(float kichThuoc) {
         this.kichThuoc.set(kichThuoc);
     }
 
@@ -39,16 +39,15 @@ public class CellPhone extends Device {
         this.thoiLuongPin.set(thoiLuongPin);
     }
 
-    public double getDoPhanGiaiCamera() {
+    public float getDoPhanGiaiCamera() {
         return doPhanGiaiCamera.get();
     }
 
-    public DoubleProperty doPhanGiaiCameraProperty() {
+    public FloatProperty doPhanGiaiCameraProperty() {
         return doPhanGiaiCamera;
     }
 
-    public void setDoPhanGiaiCamera(double doPhanGiaiCamera) {
+    public void setDoPhanGiaiCamera(float doPhanGiaiCamera) {
         this.doPhanGiaiCamera.set(doPhanGiaiCamera);
     }
-
 }

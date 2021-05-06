@@ -78,16 +78,17 @@ public class AddDeviceBox {
             String name = nameTextField.getText();
             String hsx = hsxTextField.getText();
             String model = modelTextField.getText();
-            String size = p1TextField.getText();
-            int price = 0;
-            int quantity = 0;
-            int battery = 0;
-            double rs = 0;
+            float size;
+            int price;
+            int quantity;
+            int battery;
+            float rs;
             try {
+                size = Float.parseFloat(p1TextField.getText());
                 price = Integer.parseUnsignedInt(priceTextField.getText());
                 quantity = Integer.parseUnsignedInt(quantityTextField.getText());
                 battery = Integer.parseInt(p2TextField.getText());
-                rs = Double.parseDouble(p3TextField.getText());
+                rs = Float.parseFloat(p3TextField.getText());
             } catch (NumberFormatException ex) {
                 AlertBox.display("loi dinh dang", "loi dinh dang");
                 return;
@@ -120,13 +121,14 @@ public class AddDeviceBox {
             String hsx = hsxTextField.getText();
             String model = modelTextField.getText();
             String cpu = p1TextField.getText();
-            String ram = p2TextField.getText();
             String oCung = p3TextField.getText();
-            int price = 0;
-            int quantity = 0;
+            int ram;
+            int price;
+            int quantity;
             try {
                 price = Integer.parseUnsignedInt(priceTextField.getText());
                 quantity = Integer.parseUnsignedInt(quantityTextField.getText());
+                ram = Integer.parseUnsignedInt(p2TextField.getText());
             } catch (NumberFormatException ex) {
                 AlertBox.display("loi dinh dang", "loi dinh dang");
                 return;

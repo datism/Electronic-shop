@@ -131,10 +131,10 @@ public class AdminController extends Controller<Device> {
 
         StringConverter<String> strConvert = new StrConvert();
         StringConverter<Integer> intConvert = new IntConvert();
-        StringConverter<Double>douConvert = new DouConvert();
+        StringConverter<Float> floatConvert = new FloatConvert();
 
         kichThuocColumn.setCellValueFactory(new PropertyValueFactory<>("kichThuoc"));
-        kichThuocColumn.setCellFactory(e -> new EditCustomCell(strConvert));
+        kichThuocColumn.setCellFactory(e -> new EditCustomCell(floatConvert));
         kichThuocColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
@@ -152,7 +152,7 @@ public class AdminController extends Controller<Device> {
         });
 
         doPhanGiaiCameraColumn.setCellValueFactory(new PropertyValueFactory<>("doPhanGiaiCamera"));
-        doPhanGiaiCameraColumn.setCellFactory(e -> new EditCustomCell<>(douConvert));
+        doPhanGiaiCameraColumn.setCellFactory(e -> new EditCustomCell<>(floatConvert));
         doPhanGiaiCameraColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
@@ -170,7 +170,7 @@ public class AdminController extends Controller<Device> {
         });
 
         RAMColumn.setCellValueFactory(new PropertyValueFactory<>("RAM"));
-        RAMColumn.setCellFactory(e -> new EditCustomCell<>(strConvert));
+        RAMColumn.setCellFactory(e -> new EditCustomCell<>(intConvert));
         RAMColumn.setOnEditCommit(event -> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
@@ -249,20 +249,20 @@ public class AdminController extends Controller<Device> {
         }
     }
 
-    private static class DouConvert extends StringConverter<Double> {
+    private static class FloatConvert extends StringConverter<Float> {
 
         @Override
-        public String toString(Double aDouble) {
-            if(aDouble == null)
+        public String toString(Float afloat) {
+            if(afloat == null)
                 return null;
-            return aDouble.toString();
+            return afloat.toString();
         }
 
         @Override
-        public Double fromString(String s) {
+        public Float fromString(String s) {
             if(s == null)
                 return null;
-            return Double.parseDouble(s);
+            return Float.parseFloat(s);
         }
     }
 

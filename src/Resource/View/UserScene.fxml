@@ -16,13 +16,13 @@
             <TableColumn fx:id="tenColumn" prefWidth="160.0" text="Ten" />
             <TableColumn fx:id="hangSanXuatColumn" prefWidth="160.0" text="Hang san xuat" />
             <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="105.0" text="Model" />
-            <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="134.0" text="Gia" />
-            <TableColumn fx:id="kichThuocColumn" minWidth="0.0" prefWidth="104.0" text="Kich thuoc" />
-            <TableColumn fx:id="doPhanGiaiCameraColumn" minWidth="0.0" prefWidth="177.0" text="Do phan giai camera" />
-            <TableColumn fx:id="thoiLuongPinColumn" minWidth="0.0" prefWidth="123.0" text="Thoi luong pin" />
-            <TableColumn fx:id="CPUColumn" minWidth="0.0" prefWidth="111.0" text="Cpu" />
-          <TableColumn fx:id="RAMColumn" minWidth="0.0" prefWidth="86.0" text="Ram" />
-          <TableColumn fx:id="hardDriveColumn" minWidth="0.0" prefWidth="102.0" text="O cung" />
+            <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="71.0" text="Gia(d)" />
+            <TableColumn fx:id="kichThuocColumn" minWidth="0.0" prefWidth="116.0" text="Kich thuoc(inch)" />
+            <TableColumn fx:id="doPhanGiaiCameraColumn" minWidth="0.0" prefWidth="201.0" text="Do phan giai camera(MP)" />
+            <TableColumn fx:id="thoiLuongPinColumn" minWidth="0.0" prefWidth="146.0" text="Thoi luong pin(mAh)" />
+            <TableColumn fx:id="CPUColumn" minWidth="0.0" prefWidth="102.0" text="Cpu" />
+            <TableColumn fx:id="RAMColumn" minWidth="0.0" prefWidth="78.0" text="Ram(GB)" />
+            <TableColumn fx:id="hardDriveColumn" minWidth="0.0" prefWidth="95.0" text="O cung(GB)" />
         </columns>
       </TableView>
        <AutoCompletionTextField fx:id="searchText" layoutX="468.0" layoutY="50.0" prefHeight="24.0" prefWidth="284.0" promptText="Search" />

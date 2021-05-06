@@ -1,18 +1,20 @@
 package Java.Model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Laptop extends Device {
     private StringProperty CPU;
     private StringProperty oCung;
-    private StringProperty RAM;
+    private IntegerProperty RAM;
 
-    public Laptop(int id,String ten, String hsx, String model, int price, int conlai, String cpu, String ram, String ocung)
+    public Laptop(int id,String ten, String hsx, String model, int price, int conlai, String cpu, int ram, String ocung)
     {
         super(id,ten, hsx, model,price, conlai);
         this.CPU = new SimpleStringProperty(cpu);
-        this.RAM = new SimpleStringProperty(ram);
+        this.RAM = new SimpleIntegerProperty(ram);
         this.oCung = new SimpleStringProperty(ocung);
     }
 
@@ -40,15 +42,15 @@ public class Laptop extends Device {
         this.oCung.set(oCung);
     }
 
-    public String getRAM() {
+    public int getRAM() {
         return RAM.get();
     }
 
-    public StringProperty RAMProperty() {
+    public IntegerProperty RAMProperty() {
         return RAM;
     }
 
-    public void setRAM(String RAM) {
+    public void setRAM(int RAM) {
         this.RAM.set(RAM);
     }
 }

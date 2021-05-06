@@ -32,15 +32,15 @@ public abstract class Controller<T extends Device> implements Initializable {
     @FXML
     protected TableColumn<T, Integer> priceColumn;
     @FXML
-    protected TableColumn<T, String> kichThuocColumn;
+    protected TableColumn<T, Float> kichThuocColumn;
     @FXML
     protected TableColumn<T, Integer> thoiLuongPinColumn;
     @FXML
-    protected TableColumn<T, Double> doPhanGiaiCameraColumn;
+    protected TableColumn<T, Float> doPhanGiaiCameraColumn;
     @FXML
     protected TableColumn<T, String> CPUColumn;
     @FXML
-    protected TableColumn<T, String> RAMColumn;
+    protected TableColumn<T, Integer> RAMColumn;
     @FXML
     protected TableColumn<T, String> hardDriveColumn;
     @FXML

@@ -25,11 +25,11 @@ public class Database {
             String ten = rs.getString("Ten");
             String hsx = rs.getString("HangSanXuat");
             String model = rs.getString("Model");
-            String kichThuoc = rs.getString("KichThuoc");
+            Float kichThuoc = rs.getFloat("KichThuoc");
             int thoiLuongPin = rs.getInt("ThoiLuongPin");
-            Double doPhanGiai = rs.getDouble("DoPhanGiaiCamera");
+            Float doPhanGiai = rs.getFloat("DoPhanGiaiCamera");
             String CPU = rs.getString("CPU");
-            String RAM = rs.getString("RAM");
+            int RAM = rs.getInt("RAM");
             String oCung = rs.getString("OCUNG");
             int price = rs.getInt("Gia");
             int conlai = rs.getInt("CONLAI");
@@ -45,14 +45,14 @@ public class Database {
     }
 
 
-    public void AddPhone(String ten, String hangsx, String model, String kichthuoc, int thoiluongpin, double dpg, int gia, int soluong) throws SQLException {
+    public void AddPhone(String ten, String hangsx, String model, float kichthuoc, int thoiluongpin, float dpg, int gia, int soluong) throws SQLException {
         String q = "insert into device(Ten, HangSanXuat, Model, KichThuoc, ThoiLuongPin, DoPhanGiaiCamera,Gia, CONLAI) " +
                 "values('"+ten+"','"+hangsx+"','"+model+"' ,'"+kichthuoc+"','"+thoiluongpin+"','"+dpg+"','"+gia+"','"+soluong+"')";
         conn.s.executeUpdate(q);
 
     }
 
-    public void AddLatop(String ten, String hangsx, String model, String cpu, String ram, String ocung,  int gia, int soluong) throws SQLException {
+    public void AddLatop(String ten, String hangsx, String model, String cpu, int ram, String ocung,  int gia, int soluong) throws SQLException {
         String q="insert into device(Ten, HangSanXuat, Model, CPU, RAM, OCUNG,Gia, CONLAI) "+
         "values('"+ten+"','"+hangsx+"','"+model+"' ,'"+cpu+"','"+ram+"','"+ocung+"','"+gia+"','"+soluong+"')";
         conn.s.executeUpdate(q);
@@ -77,13 +77,13 @@ public class Database {
                     String model = device.getModel();
                     if(model != "") q+="Model = '"+model+"',";
 
-                    String kichthuoc = ((CellPhone) device).getKichThuoc();
-                    if(kichthuoc != "") q+="KichThuoc = '"+kichthuoc+"',";
+                    float kichthuoc = ((CellPhone) device).getKichThuoc();
+                    if(kichthuoc != 0.0f) q+="KichThuoc = '"+kichthuoc+"',";
 
                     int thoiluongpin = ((CellPhone) device).getThoiLuongPin();
                     if(thoiluongpin != 0) q+="ThoiLuongPin = '"+thoiluongpin+"',";
 
-                    double dpg = ((CellPhone) device).getDoPhanGiaiCamera();
+                    float dpg = ((CellPhone) device).getDoPhanGiaiCamera();
                     if(dpg != 0.0f) q+="DoPhanGiaiCamera = '"+dpg+"',";
 
                     int gia = device.getPrice();
@@ -112,8 +112,8 @@ public class Database {
                     String cpu = ((Laptop) device).getCPU();
                     if(cpu != "") q+="CPU = '"+cpu+"',";
 
-                    String ram = ((Laptop) device).getRAM();
-                    if(ram != "") q+="RAM = '"+ram+"',";
+                    int ram = ((Laptop) device).getRAM();
+                    if(ram != 0) q+="RAM = '"+ram+"',";
 
                     String ocung = ((Laptop) device).getoCung();
                     if(ocung != "") q+="OCUNG = '"+ocung+"',";

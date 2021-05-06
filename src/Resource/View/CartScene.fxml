@@ -16,7 +16,7 @@
                 <TableColumn fx:id="tenColumn" prefWidth="160.0" text="Ten" />
                 <TableColumn fx:id="hangSanXuatColumn" prefWidth="160.0" text="Hang san xuat" />
                 <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="105.0" text="Model" />
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="134.0" text="Gia" />
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="134.0" text="Gia(d)" />
                 <TableColumn fx:id="conLaiColumn" prefWidth="108.0" text="Con Lai" />
                 <TableColumn fx:id="soLuongColumn" prefWidth="90.0" text="So luong" />
             </columns>
