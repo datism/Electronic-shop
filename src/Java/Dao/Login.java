@@ -24,6 +24,7 @@ public class Login {
     }
 
     public static boolean register(String name, String pass) throws SQLException {
+        System.out.printf(name);
         Conn conn = new Conn();
         String query = "select * from user where Ten='"+name+"' and MatKhau='"+pass+"'";
         ResultSet rs = conn.s.executeQuery(query);

@@ -10,34 +10,34 @@
 
 <?import Java.AutoCompletionTextField?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.AdminController">
+<AnchorPane prefHeight="951.0" prefWidth="1578.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.AdminController">
     <children>
-        <TableView fx:id="tableDv" layoutY="149.0" prefHeight="602.0" prefWidth="1300.0">
+        <TableView fx:id="tableDv" layoutX="26.0" layoutY="149.0" prefHeight="602.0" prefWidth="1523.0">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="37.0" text="ID" />
-                <TableColumn fx:id="tenColumn" prefWidth="119.0" text="Ten" />
-                <TableColumn fx:id="hangSanXuatColumn" prefWidth="169.0" text="Hang san xuat" />
-                <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="103.0" text="Model" />
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="71.0" text="Gia(d)" />
-                <TableColumn fx:id="kichThuocColumn" minWidth="0.0" prefWidth="116.0" text="Kich thuoc(inch)" />
-                <TableColumn fx:id="doPhanGiaiCameraColumn" minWidth="0.0" prefWidth="201.0" text="Do phan giai camera(MP)" />
-                <TableColumn fx:id="thoiLuongPinColumn" minWidth="0.0" prefWidth="146.0" text="Thoi luong pin(mAh)" />
-                <TableColumn fx:id="CPUColumn" minWidth="0.0" prefWidth="102.0" text="Cpu" />
-                <TableColumn fx:id="RAMColumn" minWidth="0.0" prefWidth="78.0" text="Ram(GB)" />
-                <TableColumn fx:id="hardDriveColumn" minWidth="0.0" prefWidth="95.0" text="O cung(GB)" />
-                <TableColumn fx:id="conLaiColumn" prefWidth="75.0" text="Con lai" />
+                <TableColumn fx:id="idColumn" prefWidth="59.0" text="ID" />
+                <TableColumn fx:id="tenColumn" prefWidth="155.0" text="Ten" />
+                <TableColumn fx:id="hangSanXuatColumn" prefWidth="215.0" text="Hang san xuat" />
+                <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="142.0" text="Model" />
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="128.0" text="Gia(d)" />
+                <TableColumn fx:id="kichThuocColumn" minWidth="0.0" prefWidth="124.0" text="Kich thuoc(inch)" />
+                <TableColumn fx:id="doPhanGiaiCameraColumn" minWidth="0.0" prefWidth="179.0" text="Do phan giai camera(MP)" />
+                <TableColumn fx:id="thoiLuongPinColumn" minWidth="0.0" prefWidth="149.0" text="Thoi luong pin(mAh)" />
+                <TableColumn fx:id="CPUColumn" minWidth="0.0" prefWidth="123.0" text="Cpu" />
+                <TableColumn fx:id="RAMColumn" minWidth="0.0" prefWidth="74.0" text="Ram(GB)" />
+                <TableColumn fx:id="hardDriveColumn" minWidth="0.0" prefWidth="101.0" text="O cung(GB)" />
+                <TableColumn fx:id="conLaiColumn" prefWidth="73.0" text="Con lai" />
             </columns>
         </TableView>
-        <AutoCompletionTextField fx:id="searchText" layoutX="468.0" layoutY="50.0" prefHeight="24.0" prefWidth="284.0" promptText="Search" />
-<!--        <TextField layoutX="468.0" layoutY="50.0" prefHeight="24.0" prefWidth="284.0" promptText="Search" />-->
-        <Button layoutX="406.0" layoutY="50.0" mnemonicParsing="false" onAction="#searchButtonPressed" text="Search" />
-      <Button layoutX="831.0" layoutY="751.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="101.0" onAction="#updatePressed" text="Luu thay doi" />
-      <MenuButton layoutX="1082.0" layoutY="769.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" text="them san pham">
+        <AutoCompletionTextField fx:id="searchText" layoutX="692.0" layoutY="53.0" prefHeight="33.0" prefWidth="322.0" promptText="Search" />
+<!--        <TextField layoutX="692.0" layoutY="53.0" prefHeight="33.0" prefWidth="322.0" promptText="Search" />-->
+        <Button layoutX="610.0" layoutY="53.0" mnemonicParsing="false" onAction="#searchButtonPressed" prefHeight="33.0" prefWidth="82.0" text="Tim kiem" />
+      <Button fx:id="updateButton" disable="true" layoutX="1408.0" layoutY="751.0" mnemonicParsing="false" onAction="#updatePressed" prefHeight="60.0" prefWidth="130.0" text="Luu thay doi" />
+      <MenuButton layoutX="26.0" layoutY="26.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" text="them san pham">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#addPhonePressed" text="Dien thoai" />
           <MenuItem mnemonicParsing="false" onAction="#addLaptopPressed" text="Laptop" />
         </items>
       </MenuButton>
-      <Button layoutX="480.0" layoutY="763.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="130.0" onAction="#deletePressed" text="Xoa" />
+      <Button layoutX="1244.0" layoutY="751.0" mnemonicParsing="false" onAction="#deletePressed" prefHeight="60.0" prefWidth="130.0" text="Xoa" />
     </children>
 </AnchorPane>

@@ -20,24 +20,37 @@ public class RegisterController {
     @FXML
     TextField passWord;
     @FXML
-    Text popUp;
-    @FXML
     public void registerButtonPressed(ActionEvent actionEvent) throws SQLException, IOException {
         String name = userName.getText();
         String pass = passWord.getText();
+        if (name.equals("")) {
+            AlertBox.display("Loi dang ky", "Ten khong duoc de trong");
+            reset();
+            return;
+        }
+        if (pass.equals("")) {
+            AlertBox.display("Loi dang ky", "Mat khau khong duoc de trong");
+            reset();
+            return;
+        }
         boolean mode = Login.register(name, pass);
         if (!mode) {
-            popUp.setText("Tai khoan da co vui long nhap lai.");
-            userName.clear();
-            passWord.clear();
+            AlertBox.display("loi dang ky", "Tai khoan da ton tai");
+            reset();
+            return;
         }
         else {
-            popUp.setText("Dang ky thanh cong.");
-            Parent loginParent = FXMLLoader.load(getClass().getResource("java.Controller.LoginScene.fxml"));
+            AlertBox.display("", "Dang ky thanh cong");
+            Parent loginParent = FXMLLoader.load(getClass().getResource("/Resource/View/LoginScene.fxml"));
             Scene loginScene = new Scene(loginParent);
             Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setScene(loginScene);
             stage.show();
         }
+    }
+
+    void reset() {
+        userName.clear();
+        passWord.clear();
     }
 }

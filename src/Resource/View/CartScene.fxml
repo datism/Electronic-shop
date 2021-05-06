@@ -5,26 +5,33 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <?import Java.AutoCompletionTextField?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.CartController">
+<AnchorPane prefHeight="839.0" prefWidth="1333.0"  xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.CartController">
     <children>
-        <TableView fx:id="tableDv" layoutY="149.0" prefHeight="602.0" prefWidth="1300.0">
+        <TableView fx:id="tableDv" layoutX="20.0" layoutY="109.0" prefHeight="602.0" prefWidth="1291.0">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="37.0" text="ID" />
-                <TableColumn fx:id="tenColumn" prefWidth="160.0" text="Ten" />
-                <TableColumn fx:id="hangSanXuatColumn" prefWidth="160.0" text="Hang san xuat" />
-                <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="105.0" text="Model" />
-                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="134.0" text="Gia(d)" />
-                <TableColumn fx:id="conLaiColumn" prefWidth="108.0" text="Con Lai" />
-                <TableColumn fx:id="soLuongColumn" prefWidth="90.0" text="So luong" />
+                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="tenColumn" prefWidth="230.0" text="Ten" />
+                <TableColumn fx:id="hangSanXuatColumn" prefWidth="299.0" text="Hang san xuat" />
+                <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="214.0" text="Model" />
+                <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="155.0" text="Gia(d)" />
+                <TableColumn fx:id="conLaiColumn" prefWidth="176.0" text="Con Lai" />
+                <TableColumn fx:id="soLuongColumn" prefWidth="150.0" text="So luong" />
             </columns>
         </TableView>
-        <AutoCompletionTextField fx:id="searchText" layoutX="468.0" layoutY="50.0" prefHeight="24.0" prefWidth="284.0" promptText="Search" />
-<!--        <TextField layoutX="468.0" layoutY="50.0" prefHeight="24.0" prefWidth="284.0" promptText="Search" />-->
-        <Button  layoutX="406.0" layoutY="50.0" mnemonicParsing="false" text="Search" onAction="#searchButtonPressed" />
-        <Button  layoutX="1175.0" layoutY="751.0" mnemonicParsing="false" prefHeight="44.0" onAction="#deletePressed" prefWidth="108.0" text="Xoa" />
-        <Button  layoutX="591.0" layoutY="751.0" mnemonicParsing="false" prefHeight="67.0" onAction="#purchasePressed" prefWidth="119.0" text="Thanh toan" />
+        <AutoCompletionTextField fx:id="searchText" layoutX="597.0" layoutY="50.0" prefHeight="30.0" prefWidth="284.0" promptText="Search" />
+<!--        <TextField layoutX="597.0" layoutY="50.0" prefHeight="30.0" prefWidth="284.0" promptText="Search">-->
+        <Button layoutX="524.0" layoutY="50.0" mnemonicParsing="false" onAction="#searchButtonPressed" prefHeight="30.0" prefWidth="73.0" text="Search"/>
+        <Button layoutX="56.0" layoutY="751.0" mnemonicParsing="false" onAction="#deletePressed" prefHeight="67.0" prefWidth="131.0" text="Xoa">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
+        <Button layoutX="1143.0" layoutY="751.0" mnemonicParsing="false" onAction="#purchasePressed" prefHeight="67.0" prefWidth="149.0" text="Thanh toan">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
     </children>
 </AnchorPane>

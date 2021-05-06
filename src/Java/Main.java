@@ -18,7 +18,10 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/LoginScene.fxml"));
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("/Resource/css/Style.css");
+        stage.setResizable(false);
         stage.show();
     }
 }

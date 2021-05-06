@@ -22,17 +22,21 @@ public class LoginController {
     @FXML
     TextField passWord;
     @FXML
-    private void registerHyperLinkPressed(ActionEvent event) throws IOException {
-        Parent registerParent = FXMLLoader.load(getClass().getResource("java.Controller.java.Controller.RegisterScene.fxml"));
+    private void registerPressed(ActionEvent event) throws IOException {
+        Parent registerParent = FXMLLoader.load(getClass().getResource("/Resource/View/RegisterScene.fxml"));
         Scene registerScene = new Scene(registerParent);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(registerScene);
         stage.show();
     }
     @FXML
-    public void loginButtonPressed(ActionEvent actionEvent) throws SQLException, IOException {
+    public void loginPressed(ActionEvent actionEvent) throws SQLException, IOException {
         String name = userName.getText();
         String pass = passWord.getText();
+        if (name.isEmpty() || pass.isEmpty()) {
+            AlertBox.display("Loi dang nhap", "ko the dang nhap");
+            return;
+        }
         User user = Login.login(name, pass);
         if (user == null) {
             AlertBox.display("loi dang nhap", "dang nhap ko thanh cong");
@@ -48,6 +52,7 @@ public class LoginController {
                 Scene userScene = new Scene(root);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setScene(userScene);
+                userScene.getStylesheets().add("/Resource/css/Style.css");
                 stage.show();
             }
             else {
@@ -56,6 +61,7 @@ public class LoginController {
                 Scene adminScene = new Scene(root);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setScene(adminScene);
+                adminScene.getStylesheets().add("/Resource/css/Style.css");
                 stage.show();
             }
         }

@@ -5,6 +5,7 @@ import Java.Model.* ;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -49,7 +50,10 @@ public class AdminController extends Controller<Device> {
             super.database.Modify(device);
         }
         super.updateSearchResult();
+        this.updateButton.setDisable(true);
     }
+    @FXML
+    private Button updateButton;
 
     private final Set<Device> changedItem = new LinkedHashSet<>();
 
@@ -89,6 +93,7 @@ public class AdminController extends Controller<Device> {
             Device device = (Device) t.getTableView().getItems().get(
                     t.getTablePosition().getRow());
             device.setTen((String) t.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(device);
         });
 
@@ -98,6 +103,7 @@ public class AdminController extends Controller<Device> {
             Device device = event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             device.setHangSanXuat(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(device);
         });
 
@@ -108,6 +114,7 @@ public class AdminController extends Controller<Device> {
             Device device = event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             device.setModel(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(device);
         });
 
@@ -126,6 +133,7 @@ public class AdminController extends Controller<Device> {
             Device device = event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             device.setPrice(price);
+            this.updateButton.setDisable(false);
             changedItem.add(device);
         });
 
@@ -139,6 +147,7 @@ public class AdminController extends Controller<Device> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             phone.setKichThuoc(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(phone);
         });
 
@@ -148,6 +157,7 @@ public class AdminController extends Controller<Device> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             phone.setThoiLuongPin(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(phone);
         });
 
@@ -157,6 +167,7 @@ public class AdminController extends Controller<Device> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             phone.setDoPhanGiaiCamera(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(phone);
         });
 
@@ -166,6 +177,7 @@ public class AdminController extends Controller<Device> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             laptop.setCPU(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(laptop);
         });
 
@@ -175,6 +187,7 @@ public class AdminController extends Controller<Device> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             laptop.setRAM(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(laptop);
         });
 
@@ -184,6 +197,7 @@ public class AdminController extends Controller<Device> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             laptop.setoCung(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(laptop);
         });
 
@@ -193,6 +207,7 @@ public class AdminController extends Controller<Device> {
             Device device = event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             device.setConLai(event.getNewValue());
+            this.updateButton.setDisable(false);
             changedItem.add(device);
         });
 

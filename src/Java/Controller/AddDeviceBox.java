@@ -102,6 +102,7 @@ public class AddDeviceBox {
         });
         Scene scene = new Scene(root);
         window.setScene(scene);
+        scene.getStylesheets().add("/Resource/css/Style.css");
         window.showAndWait();
     }
 
@@ -142,6 +143,7 @@ public class AddDeviceBox {
         });
         Scene scene = new Scene(root);
         window.setScene(scene);
+        scene.getStylesheets().add("/Resource/css/Style.css");
         window.showAndWait();
     }
 

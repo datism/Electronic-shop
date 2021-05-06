@@ -34,9 +34,9 @@ public class UserController extends Controller<Device> {
         Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/CartScene.fxml"));
         CartController cartController = loader.getController();
         cartController.setCart(cart);
-
         Scene cartScene = new Scene(root);
         stage.setScene(cartScene);
+        cartScene.getStylesheets().add("/Resource/css/Style.css");
         stage.show();
     }
 

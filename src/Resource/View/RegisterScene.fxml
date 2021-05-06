@@ -5,20 +5,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.RegisterController">
+<AnchorPane prefHeight="311.0" prefWidth="453.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.RegisterController">
    <children>
-      <TextField fx:id="userName" layoutX="194.0" layoutY="106.0" />
-      <TextField fx:id="passWord" layoutX="194.0" layoutY="144.0" />
-      <Label layoutX="109.0" layoutY="110.0" text="Username" />
-      <Label layoutX="109.0" layoutY="148.0" text="Password" />
-      <Button layoutX="194.0" layoutY="188.0" mnemonicParsing="false" onAction="#registerButtonPressed" text="Register" />
-      <Text fx:id="popUp" layoutX="204.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="151.7294921875">
+      <TextField fx:id="userName" layoutX="176.0" layoutY="83.0" />
+      <TextField fx:id="passWord" layoutX="176.0" layoutY="128.0" prefHeight="24.0" prefWidth="171.0" />
+      <Label layoutX="53.0" layoutY="83.0" prefHeight="24.0" prefWidth="123.0" text="Ten">
          <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
+            <Font size="19.0" />
+         </font></Label>
+      <Label layoutX="53.0" layoutY="128.0" prefHeight="24.0" prefWidth="96.0" text="Mat khau">
+         <font>
+            <Font size="19.0" />
+         </font></Label>
+      <Button layoutX="176.0" layoutY="164.0" mnemonicParsing="false" onAction="#registerButtonPressed" prefHeight="36.0" prefWidth="116.0" text="Dang ky">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
    </children>
 </AnchorPane>
