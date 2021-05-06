@@ -4,6 +4,7 @@ import javafx.scene.control.TextField;
 
 import static java.lang.Integer.parseInt;
 
+// du lieu de bieu dien tren cartScene
 public class DeviceTf extends Device{
     private TextField soLuong;
 

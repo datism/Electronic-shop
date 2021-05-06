@@ -2,6 +2,7 @@ package Java.Model;
 
 import java.sql.Date;
 
+// hoa don tren database
 public class Bill {
     private User user;
     private Date date;

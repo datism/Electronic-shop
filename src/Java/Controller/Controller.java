@@ -22,39 +22,40 @@ public abstract class Controller<T extends Device> implements Initializable {
     @FXML
     protected TableView<T> tableDv;
     @FXML
-    protected TableColumn<T, Integer> idColumn;
+    protected TableColumn<T, Integer> idColumn;             //cot id
     @FXML
-    protected TableColumn tenColumn;
+    protected TableColumn tenColumn;                        //cot ten
     @FXML
-    protected TableColumn<T, String> hangSanXuatColumn;
+    protected TableColumn<T, String> hangSanXuatColumn;     //cot hsx
     @FXML
-    protected TableColumn<T, String> modelColumn;
+    protected TableColumn<T, String> modelColumn;           //cot model
     @FXML
-    protected TableColumn<T, Integer> priceColumn;
+    protected TableColumn<T, Integer> priceColumn;          //cot gia
     @FXML
-    protected TableColumn<T, Float> kichThuocColumn;
+    protected TableColumn<T, Float> kichThuocColumn;        //cot kich thuoc
     @FXML
-    protected TableColumn<T, Integer> thoiLuongPinColumn;
+    protected TableColumn<T, Integer> thoiLuongPinColumn;   //cot thoi luong pin
     @FXML
-    protected TableColumn<T, Float> doPhanGiaiCameraColumn;
+    protected TableColumn<T, Float> doPhanGiaiCameraColumn; //cot do phan giai
     @FXML
-    protected TableColumn<T, String> CPUColumn;
+    protected TableColumn<T, String> CPUColumn;             //cot cpu
     @FXML
-    protected TableColumn<T, Integer> RAMColumn;
+    protected TableColumn<T, Integer> RAMColumn;            //cot ram
     @FXML
-    protected TableColumn<T, String> hardDriveColumn;
+    protected TableColumn<T, String> hardDriveColumn;       //cot o cung
     @FXML
-    protected TableColumn<T, Integer> conLaiColumn;
+    protected TableColumn<T, Integer> conLaiColumn;         //cot con lai
     @FXML
-    protected AutoCompletionTextField searchText;
+    protected AutoCompletionTextField searchText;           //thanh tim kiem
     @FXML
     protected void searchButtonPressed(ActionEvent event) throws NoSuchMethodException {
         searchHandle(this.deviceList);
     }
 
-    protected ObservableList<T> deviceList = FXCollections.observableArrayList();
-    protected Database database = new Database();
+    protected ObservableList<T> deviceList = FXCollections.observableArrayList(); //mang thiet bi hien thi trong scene
+    protected Database database = new Database();   // lay du lieu hoac thay doi du lieu database
 
+    //cap nhat ket qua tim kiem
     protected void updateSearchResult() {
         if (!deviceList.isEmpty()) {
             Set<String> manuList = deviceList.stream().map(device -> device.getHangSanXuat()).collect(Collectors.toSet());
@@ -64,12 +65,13 @@ public abstract class Controller<T extends Device> implements Initializable {
         }
     }
 
+    //xu ly khi mot ket qua dc chon tu thanh tim kiem
     protected void searchHandle(ObservableList<T> deviceList1) throws NoSuchMethodException {
         String sf = searchText.getText();
         ObservableList<T> deviceList2 = FXCollections.observableArrayList();
         if (!sf.equals("")) {
-            Method method = Device.class.getMethod(String.valueOf(searchText.getUserData()));
-
+            Method method = Device.class.getMethod(String.valueOf(searchText.getUserData())); // lay phuong thuc de thiet lap filter
+                                                                                              // getHsx hoac getTen
             ArrayList<T> deviceL = (ArrayList<T>) deviceList1.stream().filter(device -> {
                 try {
                     if (sf.equals(method.invoke(device)))
@@ -81,13 +83,14 @@ public abstract class Controller<T extends Device> implements Initializable {
                 }
                 return false;
             }).collect(Collectors.toList());
+
             deviceList2.setAll(deviceL);
         }
-        else
+        else    // Neu thanh tim kiem ko co gi thi se hien thi toan bo danh sach thiet bi
             deviceList2 = deviceList1;
         tableDv.setItems(deviceList2);
     }
 
-    abstract void columnInit();
+    abstract void columnInit(); //cac lop con deu phai khoi tao cot
 
 }

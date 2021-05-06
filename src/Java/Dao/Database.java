@@ -16,6 +16,7 @@ public class Database {
         conn = new Conn();
     }
 
+    // lay du lieu tu database
     public ArrayList<Device> getData() throws SQLException{
         String query = "select * from device";
         ResultSet rs = conn.s.executeQuery(query);
@@ -44,7 +45,7 @@ public class Database {
         return listDv;
     }
 
-
+    //them CellPhone moi vao database
     public void AddPhone(String ten, String hangsx, String model, float kichthuoc, int thoiluongpin, float dpg, int gia, int soluong) throws SQLException {
         String q = "insert into device(Ten, HangSanXuat, Model, KichThuoc, ThoiLuongPin, DoPhanGiaiCamera,Gia, CONLAI) " +
                 "values('"+ten+"','"+hangsx+"','"+model+"' ,'"+kichthuoc+"','"+thoiluongpin+"','"+dpg+"','"+gia+"','"+soluong+"')";
@@ -52,12 +53,14 @@ public class Database {
 
     }
 
+    //them Laptop moi vao database
     public void AddLatop(String ten, String hangsx, String model, String cpu, int ram, String ocung,  int gia, int soluong) throws SQLException {
         String q="insert into device(Ten, HangSanXuat, Model, CPU, RAM, OCUNG,Gia, CONLAI) "+
         "values('"+ten+"','"+hangsx+"','"+model+"' ,'"+cpu+"','"+ram+"','"+ocung+"','"+gia+"','"+soluong+"')";
         conn.s.executeUpdate(q);
     }
 
+    //thay doi thiet bi trong database
     public void Modify(Device device) throws SQLException {
             int id = device.getId();
             String query = "select * from device where id='"+id+"'";

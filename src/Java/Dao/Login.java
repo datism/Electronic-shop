@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 
 public class Login {
+    //neu user co tai khoan trong database thi tra ve user, neu khong thi tra ve null
     public static User login(String name, String pass) throws SQLException {
         Conn conn = new Conn();
         User user = null;
@@ -23,6 +24,7 @@ public class Login {
         return user;
     }
 
+    //them user vao databases
     public static boolean register(String name, String pass) throws SQLException {
         System.out.printf(name);
         Conn conn = new Conn();

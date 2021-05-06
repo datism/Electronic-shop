@@ -49,7 +49,7 @@ public class RegisterController {
         }
     }
 
-    void reset() {
+    void reset() {          //neu loi thi se xoa het du lieu nhap vao
         userName.clear();
         passWord.clear();
     }

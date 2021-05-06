@@ -20,29 +20,29 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class AdminController extends Controller<Device> {
-    @FXML
+    @FXML   //nut them dien thoai
     private void addPhonePressed(ActionEvent event) throws SQLException {
         AddDeviceBox addDeviceBox = new AddDeviceBox();
         addDeviceBox.adddPhone();
-        super.deviceList.setAll(super.database.getData());
-        updateSearchResult();
+        super.deviceList.setAll(super.database.getData());  //reset lai table
+        updateSearchResult();   //cap nhat ket qua tim kiem
     }
-    @FXML
+    @FXML   //nut them laptop
     private void addLaptopPressed(ActionEvent event) throws SQLException {
         AddDeviceBox addDeviceBox = new AddDeviceBox();
         addDeviceBox.adddLaptop();
         super.deviceList.setAll(super.database.getData());
         updateSearchResult();
     }
-    @FXML
+    @FXML   //nut xoa
     private void deletePressed(ActionEvent event) throws SQLException {
         Device item = super.tableDv.getFocusModel().getFocusedItem();
-        super.deviceList.remove(item);
         super.database.Delete(item.getId());
+        super.deviceList.setAll(super.database.getData());
         updateSearchResult();
 
     }
-    @FXML
+    @FXML   //nut cap nhat
     private void updatePressed(ActionEvent event) throws SQLException {
         for (Device device :
                 this.changedItem) {
@@ -50,30 +50,30 @@ public class AdminController extends Controller<Device> {
             super.database.Modify(device);
         }
         super.updateSearchResult();
-        this.updateButton.setDisable(true);
+        this.updateButton.setDisable(true);     //tat nu cap nhat cho den khi co thay doi
     }
-    @FXML
+    @FXML   // nut cap nhat
     private Button updateButton;
 
-    private final Set<Device> changedItem = new LinkedHashSet<>();
+    private final Set<Device> changedItem = new LinkedHashSet<>();  //nhung thiet bi dc thay doi
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            super.deviceList.addAll(database.getData());
+            super.deviceList.addAll(database.getData());    //lay du lieu tu database
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        columnInit();
+        columnInit();           //khoi tao cot
 
-        super.tableDv.setItems(deviceList);
-        super.tableDv.setEditable(true);
+        super.tableDv.setItems(deviceList);     //khoi tao du lieu de table hien thi
+        super.tableDv.setEditable(true);        //cho phep thay doi gia tri trong bang
 
-        super.updateSearchResult();
+        super.updateSearchResult();             //cap nhat ket qua tim kiem
 
-        super.searchText.setOnKeyPressed(keyEvent -> {
+        super.searchText.setOnKeyPressed(keyEvent -> {  //hien thi ket qua tim kiem khi nhan dau cach
             if(keyEvent.getCode() == KeyCode.ENTER) {
                 try {
                     super.searchHandle(deviceList);
@@ -85,16 +85,20 @@ public class AdminController extends Controller<Device> {
     }
 
     void columnInit() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     //khoi tao gia tri cho cot id
+                                                                               //cot id khong the thay doi
 
         tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
+
+        //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/TextFieldTableCell.html#forTableColumn--
         tenColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
         tenColumn.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) t -> {
             Device device = (Device) t.getTableView().getItems().get(
-                    t.getTablePosition().getRow());
-            device.setTen((String) t.getNewValue());
-            this.updateButton.setDisable(false);
-            changedItem.add(device);
+                    t.getTablePosition().getRow());                                         //lay thiet bi dc thay doi
+            device.setTen((String) t.getNewValue());                                        //thay doi gia tri
+            this.updateButton.setDisable(false);                                            //enable nut cap nhat
+            changedItem.add(device);                                                        //them thiet bi vao danh sach thay doi
         });
 
         hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
@@ -119,6 +123,8 @@ public class AdminController extends Controller<Device> {
         });
 
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/TextFieldTableCell.html#forTableColumn-javafx.util.StringConverter-
         priceColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         priceColumn.setOnEditCommit(event -> {
             int price;
@@ -137,9 +143,9 @@ public class AdminController extends Controller<Device> {
             changedItem.add(device);
         });
 
-        StringConverter<String> strConvert = new StrConvert();
-        StringConverter<Integer> intConvert = new IntConvert();
-        StringConverter<Float> floatConvert = new FloatConvert();
+        StringConverter<String> strConvert = new StrConvert();          //doi dinh dang string sang string (vi cai EditCustomCell tu dinh nghia)
+        StringConverter<Integer> intConvert = new IntConvert();         //Intteger sang String va ngc lai
+        StringConverter<Float> floatConvert = new FloatConvert();       //Float sang String va ngc lai
 
         kichThuocColumn.setCellValueFactory(new PropertyValueFactory<>("kichThuoc"));
         kichThuocColumn.setCellFactory(e -> new EditCustomCell(floatConvert));
@@ -214,6 +220,7 @@ public class AdminController extends Controller<Device> {
 
     }
 
+    //neu thiet bi khong co thuoc tinh thi se hien thi la "Null" va khong cho thay doi
     private static class EditCustomCell<T> extends TextFieldTableCell<Device, T> {
         public EditCustomCell(StringConverter<T> stringConverter) {
             super(stringConverter);

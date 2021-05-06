@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class UserController extends Controller<Device> {
+    // event khi nut them vao gio hang duoc nhan
     @FXML
     private void addToCartButtonPressed(ActionEvent event) {
         Device item = tableDv.getFocusModel().getFocusedItem();
@@ -26,20 +27,24 @@ public class UserController extends Controller<Device> {
         this.deviceList.remove(item);
     }
 
+    // event khi nut gio hang duoc nhan
     @FXML
     private void cartButtonPressed(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setUserData(cart);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();    //lay stage hien tai
+
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/CartScene.fxml"));
+        Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/CartScene.fxml")); //load CartScene
+
         CartController cartController = loader.getController();
-        cartController.setCart(cart);
+        cartController.setCart(cart);                               // thiet lap danh sach thiet bi cho cartController
+
         Scene cartScene = new Scene(root);
         stage.setScene(cartScene);
         cartScene.getStylesheets().add("/Resource/css/Style.css");
         stage.show();
     }
 
+    // mang luu cac thiet bi trong gio hang
     private ArrayList<DeviceTf> cart = new ArrayList<>();
 
     @Override
@@ -50,13 +55,13 @@ public class UserController extends Controller<Device> {
             AlertBox.display("loi du lieu", "ko the lay du lieu tu database");
         }
 
-        columnInit();
+        columnInit();   //khoi tao column
 
-        tableDv.setItems(deviceList);
+        tableDv.setItems(deviceList);   //khoi tao bang
 
-        updateSearchResult();
+        updateSearchResult();   //cap nhat du lieu tim kiem
 
-       searchText.setOnKeyPressed(keyEvent -> {
+       searchText.setOnKeyPressed(keyEvent -> {         // tim kiem khi an dau cach
            if(keyEvent.getCode() == KeyCode.ENTER) {
                try {
                    searchHandle(deviceList);
@@ -88,18 +93,19 @@ public class UserController extends Controller<Device> {
         hardDriveColumn.setCellFactory(param -> new ColumnCell());
     }
 
+
     private static class ColumnCell<T> extends TableCell<Device, T> {
         @Override
         protected void updateItem(T obj, boolean empty) {
             super.updateItem(obj, empty);
             if (!empty) {
                 if (obj == null)
-                    setText("Null");
+                    setText("Null");            // neu thiet bi khong co thuoc tinh thi se hien thi "Null"
                 else
                     setText(obj.toString());
             }
             else
-                setText(null);
+                setText(null);                    // neu thiet bi khong ton tai thi ko hien thi
         }
     }
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+// tao ket noi den database
 public class Conn {
     public Connection c;
     public Statement s;

@@ -19,6 +19,7 @@ public class Purchase {
         conn = new Conn();
     }
 
+    //day hoa don len database
     public void action(ArrayList<DeviceTf> cart) throws SQLException {
         if(cart.isEmpty())
             return;

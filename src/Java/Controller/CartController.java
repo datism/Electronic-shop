@@ -25,27 +25,29 @@ import static java.lang.Integer.parseUnsignedInt;
 
 public class CartController extends Controller<DeviceTf> {
 
-    public void setCart(ArrayList<DeviceTf> cart) {
+    public void setCart(ArrayList<DeviceTf> cart) {     //lay danh sach thiet bi tu UserController
         super.deviceList.setAll(cart);
     }
 
     @FXML
-    private void deletePressed(ActionEvent event) {
+    private void deletePressed(ActionEvent event) {     //event khi nut xoa duoc nhan
         Device item = tableDv.getFocusModel().getFocusedItem();
         super.deviceList.remove(item);
-        super.updateSearchResult();
+        super.updateSearchResult();                 //cap nha ket qua tim kiem
     }
 
     @FXML
-    private void purchasePressed(ActionEvent event) {
+    private void purchasePressed(ActionEvent event) {   //event khi nut thanh toan duoc nhan
         if (checkSoluong()) {
-            User user = UserHolder.getInstance().getUser();
+            User user = UserHolder.getInstance().getUser();     //lay user dang dung
+
             Purchase purchase = new Purchase(user);
             try {
                 purchase.action((new ArrayList<>(new ArrayList<>(super.deviceList))));
             } catch (SQLException a) {
                 a.printStackTrace();
             }
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         }
@@ -59,11 +61,11 @@ public class CartController extends Controller<DeviceTf> {
 
         this.columnInit();
 
-        tableDv.setItems(deviceList);
+        tableDv.setItems(deviceList);   //khoi tao du lieu cho bang
 
-        super.updateSearchResult();
+        super.updateSearchResult();     //cap nhat ket qua tim kiem
 
-        searchText.setOnKeyPressed(keyEvent -> {
+        searchText.setOnKeyPressed(keyEvent -> {        //khi an dau cach se tim kiem
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 try {
                     searchHandle(deviceList);
@@ -75,7 +77,7 @@ public class CartController extends Controller<DeviceTf> {
     }
 
     @Override
-    void columnInit() {
+    void columnInit() {     // khoi tao du lieu cho cac cot
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
         hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
@@ -85,7 +87,7 @@ public class CartController extends Controller<DeviceTf> {
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
     }
 
-    private boolean checkSoluong() {
+    private boolean checkSoluong() {    //neu so luong khong so nguyen duong se hien thi loi
         int exId = 0;
         String message = null;
         for (DeviceTf deviceTf:

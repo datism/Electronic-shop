@@ -4,14 +4,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Locale;
 
-public class AlertBox {
+public class AlertBox {     //box de hien thi loi
     public static void display(String title, String message) {
         Stage window = new Stage();
 

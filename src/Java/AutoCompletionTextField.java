@@ -11,6 +11,8 @@ import javafx.scene.text.TextFlow;
 import java.util.*;
 import java.util.stream.Collectors;
 
+//Tim kiem tu hoan thanh theo ten va hang san xuat
+
 public class AutoCompletionTextField extends TextField {
     //Local variables
     //entries to autocomplete
