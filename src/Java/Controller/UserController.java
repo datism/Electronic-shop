@@ -23,8 +23,13 @@ public class UserController extends Controller<Device> {
     @FXML
     private void addToCartButtonPressed(ActionEvent event) {
         Device item = tableDv.getFocusModel().getFocusedItem();
-        this.cart.add(new DeviceTf(item, "1"));
+
+        this.cart.add(new DeviceTf(item, 1));
+
         this.deviceList.remove(item);
+        tableDv.setItems(deviceList);
+
+        super.updateSearchResult();
     }
 
     // event khi nut gio hang duoc nhan

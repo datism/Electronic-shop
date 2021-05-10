@@ -117,7 +117,6 @@ public class AddDeviceBox {
 
 
         addButton.setOnAction(actionEvent -> {
-            boolean failed = false;
             String name = nameTextField.getText();
             String hsx = hsxTextField.getText();
             String model = modelTextField.getText();

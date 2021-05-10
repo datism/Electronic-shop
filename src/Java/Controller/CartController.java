@@ -11,8 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 
@@ -27,34 +30,41 @@ public class CartController extends Controller<DeviceTf> {
 
     public void setCart(ArrayList<DeviceTf> cart) {     //lay danh sach thiet bi tu UserController
         super.deviceList.setAll(cart);
+        super.updateSearchResult();     //cap nhat ket qua tim kiem
+        updateSum();
     }
 
     @FXML
     private void deletePressed(ActionEvent event) {     //event khi nut xoa duoc nhan
         Device item = tableDv.getFocusModel().getFocusedItem();
+
         super.deviceList.remove(item);
+        tableDv.setItems(deviceList);
+
         super.updateSearchResult();                 //cap nha ket qua tim kiem
+        this.updateSum();
     }
 
     @FXML
     private void purchasePressed(ActionEvent event) {   //event khi nut thanh toan duoc nhan
-        if (checkSoluong()) {
-            User user = UserHolder.getInstance().getUser();     //lay user dang dung
+        User user = UserHolder.getInstance().getUser();     //lay user dang dung
 
-            Purchase purchase = new Purchase(user);
-            try {
-                purchase.action((new ArrayList<>(new ArrayList<>(super.deviceList))));
-            } catch (SQLException a) {
-                a.printStackTrace();
-            }
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
+        Purchase purchase = new Purchase(user);
+        try {
+            purchase.action((new ArrayList<>(new ArrayList<>(super.deviceList))));
+        } catch (SQLException a) {
+            a.printStackTrace();
         }
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     @FXML
-    private TableColumn<Device, TextField> soLuongColumn;
+    private TableColumn<Device, Integer> soLuongColumn;
+
+    @FXML
+    private Text SumText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,8 +72,9 @@ public class CartController extends Controller<DeviceTf> {
         this.columnInit();
 
         tableDv.setItems(deviceList);   //khoi tao du lieu cho bang
+        tableDv.setEditable(true);
 
-        super.updateSearchResult();     //cap nhat ket qua tim kiem
+
 
         searchText.setOnKeyPressed(keyEvent -> {        //khi an dau cach se tim kiem
             if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -84,36 +95,36 @@ public class CartController extends Controller<DeviceTf> {
         modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));
+
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
-    }
-
-    private boolean checkSoluong() {    //neu so luong khong so nguyen duong se hien thi loi
-        int exId = 0;
-        String message = null;
-        for (DeviceTf deviceTf:
-             deviceList) {
-            String soluongStr = deviceTf.getSoLuong().getText();
-            int soluong;
+        soLuongColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        soLuongColumn.setOnEditCommit(event -> {
+            int soluong = 0;
+            DeviceTf device = (DeviceTf) event.getTableView().getItems().get(
+                    event.getTablePosition().getRow());
             try {
-                soluong = parseUnsignedInt(soluongStr);
-                if (soluong > deviceTf.getConLai()) {
-                    message = "so luong phai be hon so san pham con lai";
+                soluong = event.getNewValue();
+                if (soluong < 0)
+                    throw new NumberFormatException();
+                if (soluong > device.getConLai())
                     throw new Exception();
-                }
-            } catch (final NumberFormatException e) {
-                exId = deviceTf.getId();
-                message = "so luong phai la so nguyen duong";
-                break;
+            } catch (NumberFormatException e) {
+                AlertBox.display("sai dinh dang", "so luong phai la so nguyen >= 0");
+                return;
             } catch (Exception e) {
-                exId = deviceTf.getId();
-                break;
+                AlertBox.display("sai so luong", "so luong phai be hon so san pham con lai");
+                return;
             }
-        }
-        if(exId != 0) {
-            AlertBox.display("loi so sluong tai id: " + exId , message);
-            return false;
-        }
-        return true;
+            device.setSoLuong(soluong);
+            updateSum();
+        });
     }
 
+    void updateSum() {
+        int sum = 0;
+        for(DeviceTf deviceTf: deviceList) {
+            sum += deviceTf.getSoLuong() * deviceTf.getPrice();
+        }
+        SumText.setText(String.valueOf(sum));
+    }
 }

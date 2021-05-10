@@ -4,6 +4,7 @@ import Java.Model.Bill;
 import Java.Model.DeviceTf;
 import Java.Model.User;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class Purchase {
     public Purchase(User user)
     {
         this.user = user;
-        bill = new Bill(user);
+        bill = new Bill(user.getId());
         conn = new Conn();
     }
 
@@ -26,7 +27,7 @@ public class Purchase {
         for (DeviceTf device:
              cart) {
             int id = device.getId();
-            int soluong = device.getSoLuongInt();
+            int soluong = device.getSoLuong();
             bill.action(device.getPrice(), soluong);
             int soluongmoi = device.getConLai() - soluong;
             if (soluongmoi < 1) {
@@ -40,22 +41,20 @@ public class Purchase {
         }
         int idUser = user.getId();
         int gia = bill.getMoney();
+
         String queryBill = "insert into bill(UserId, Gia, ThoiGian) values ('" + idUser + "', '" + gia +"',CURDATE())";
         conn.s.executeUpdate(queryBill);
+
+        String query = "select * from user where Id='" + idUser + "'";
+        ResultSet rs = conn.s.executeQuery(query);
+        if(rs.next()) {
+            int daMua = rs.getInt("DaMua");
+            daMua += gia;
+            System.out.println(daMua);
+            String queryUser = "update user set DaMua = '" + daMua + "' where Id = '" + idUser + "'";
+            conn.s.executeUpdate(queryUser);
+        }
+
     }
 
-    public void DoanhThu() throws SQLException {
-//        System.out.printf("Doanh thu tu ngay[yyyy-MM-dd]: ");
-//        String startDay = scanner.nextLine();
-//        System.out.printf("Doanh thu den ngay[yyyy-MM-dd]: ");
-//        String endDay = scanner.nextLine();
-//        String  query = "select * from bill where ThoiGian between '"+startDay+"' and '"+endDay+"'";
-//        ResultSet rs = conn.s.executeQuery(query);
-//        int doanhThu = 0;
-//        while (rs.next())
-//        {
-//            doanhThu += rs.getInt("Gia");
-//        }
-//        System.out.println("Trong khoang thoi gian tren so tien thu duoc la: "+doanhThu);
-    }
 }

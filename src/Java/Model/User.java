@@ -5,16 +5,26 @@ public class User {
     private String userName;
     private String passWord;
     private boolean admin;
+    private int revenue;
     public User()
     {
 
     }
-    public User(int id, String user, String pass, boolean ad)
-    {
+
+    public User(int id, String userName, String passWord, boolean admin, int revenue) {
         this.id = id;
-        this.userName= user;
-        this.passWord= pass;
-        this.admin = ad;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.admin = admin;
+        this.revenue = revenue;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
     }
 
     public int getId() {
@@ -41,5 +51,11 @@ public class User {
         this.passWord = passWord;
     }
 
-    public boolean isAdmin(){return admin;}
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }

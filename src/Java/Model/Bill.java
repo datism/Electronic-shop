@@ -1,33 +1,41 @@
 package Java.Model;
 
+import javafx.beans.property.IntegerProperty;
+
 import java.sql.Date;
 
 // hoa don tren database
 public class Bill {
-    private User user;
+    private int userId;
     private Date date;
     public int money;
-    public Bill(User user)
+    public Bill(int userId)
     {
-        this.user=user;
-        long millis=System.currentTimeMillis();
+        this.userId = userId;
+        long millis = System.currentTimeMillis();
         date = new Date(millis);
         money = 0;
     }
 
-    public User getUser() {
-        return user;
+    public Bill(int userId, Date date, int money) {
+        this.userId = userId;
+        this.date = date;
+        this.money = money;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public int getUserId() {
+        return userId;
     }
 
-    public Date getTime() {
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setTime(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="464.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.RevenueController">
+   <children>
+      <TableView fx:id="tableB" layoutX="37.0" layoutY="34.0" prefHeight="360.0" prefWidth="442.0">
+        <columns>
+          <TableColumn fx:id="userIdCol" prefWidth="75.0" text="User ID" />
+          <TableColumn fx:id="moneyCol" prefWidth="182.0" text="Tien thanh toan(d)" />
+            <TableColumn fx:id="dateCol" prefWidth="184.0" text="Ngay" />
+        </columns>
+      </TableView>
+      <Label layoutX="159.0" layoutY="409.0" prefHeight="24.0" prefWidth="112.0" text="Doanh thu:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Text fx:id="revenueText" layoutX="278.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="156.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

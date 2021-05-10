@@ -41,10 +41,7 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`Id`, `UserId`, `Gia`, `ThoiGian`) VALUES
-(2, 3, 83579000, '2021-05-01'),
-(3, 3, 53500000, '2021-05-01'),
-(4, 3, 35970000, '2021-05-01'),
-(5, 3, 7990000, '2021-05-01');
+(2, 3, 7990000, '2021-05-01');
 
 -- --------------------------------------------------------
 
@@ -53,7 +50,7 @@ INSERT INTO `bill` (`Id`, `UserId`, `Gia`, `ThoiGian`) VALUES
 --
 
 CREATE TABLE `device` (
-  `id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL,
   `Ten` varchar(255) NOT NULL,
   `HangSanXuat` varchar(255) NOT NULL,
   `Model` varchar(50) NOT NULL,
@@ -71,7 +68,7 @@ CREATE TABLE `device` (
 -- Đang đổ dữ liệu cho bảng `device`
 --
 
-INSERT INTO `device` (`id`, `Ten`, `HangSanXuat`, `Model`, `KichThuoc`, `ThoiLuongPin`, `DoPhanGiaiCamera`, `CPU`, `RAM`, `OCUNG`, `Gia`, `CONLAI`) VALUES
+INSERT INTO `device` (`Id`, `Ten`, `HangSanXuat`, `Model`, `KichThuoc`, `ThoiLuongPin`, `DoPhanGiaiCamera`, `CPU`, `RAM`, `OCUNG`, `Gia`, `CONLAI`) VALUES
 (1, 'ACER SWIFT 3', 'ACER', 'SF315', NULL, NULL, NULL, 'COREI5 8th', 8, 'SSD 256', 18999000, 16),
 (2, 'IPHONE 6 PLUS', 'APPLE', '6 Plus', 7.5, 2915, 8, NULL, NULL, NULL, 3500000, 24),
 (3, 'DELL XPS 13 7390', 'DELL', '7390', NULL, NULL, NULL, '10210U', 8, 'SSD 256', 31800000, 20),
@@ -89,20 +86,21 @@ INSERT INTO `device` (`id`, `Ten`, `HangSanXuat`, `Model`, `KichThuoc`, `ThoiLuo
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL,
   `Ten` varchar(255) NOT NULL,
   `MatKhau` varchar(255) NOT NULL,
-  `isAdmin` int(1) NOT NULL
+  `IsAdmin` bit NOT NULL,
+  `DaMua` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `user`
 --
 
-INSERT INTO `user` (`id`, `Ten`, `MatKhau`, `isAdmin`) VALUES
-(1, 'admin', 'admin', 1),
-(2, 'Thai An', '123', 0),
-(3, 'oop2021', '2021', 0);
+INSERT INTO `user` (`Id`, `Ten`, `MatKhau`, `IsAdmin`, `DaMua`) VALUES
+(1, 'admin', 'admin', 1, 0),
+(2, 'Thai An', '123', 0, 0),
+(3, 'oop2021', '2021', 0, 7990000);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -119,13 +117,13 @@ ALTER TABLE `bill`
 -- Chỉ mục cho bảng `device`
 --
 ALTER TABLE `device`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -141,13 +139,13 @@ ALTER TABLE `bill`
 -- AUTO_INCREMENT cho bảng `device`
 --
 ALTER TABLE `device`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -157,7 +155,7 @@ ALTER TABLE `user`
 -- Các ràng buộc cho bảng `bill`
 --
 ALTER TABLE `bill`
-  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

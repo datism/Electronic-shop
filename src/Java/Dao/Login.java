@@ -15,24 +15,21 @@ public class Login {
         ResultSet rs = conn.s.executeQuery(query);
         if(rs.next())
         {
-            int isAdmin = rs.getInt("isAdmin");
-            if(isAdmin == 0)
-                user = new User(rs.getInt("id"),name, pass, false);
-            else
-                user = new User(rs.getInt("id"),name,pass,true);
+            boolean isAdmin = rs.getBoolean("IsAdmin");
+            int daMua = rs.getInt("DaMua");
+            user = new User(rs.getInt("Id"), name, pass, isAdmin, daMua);
         }
         return user;
     }
 
     //them user vao databases
     public static boolean register(String name, String pass) throws SQLException {
-        System.out.printf(name);
         Conn conn = new Conn();
         String query = "select * from user where Ten='"+name+"' and MatKhau='"+pass+"'";
         ResultSet rs = conn.s.executeQuery(query);
         if(rs.next())
             return false;
-        String q = "insert into user(Ten, MatKhau, isAdmin) values('"+name+"','"+pass+"',0)";
+        String q = "insert into user(Ten, MatKhau, IsAdmin, DaMua) values('"+name+"','"+pass+"', 0, 0)";
         conn.s.executeUpdate(q);
         return true;
     }

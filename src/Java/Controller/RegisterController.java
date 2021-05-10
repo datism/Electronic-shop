@@ -45,6 +45,7 @@ public class RegisterController {
             Scene loginScene = new Scene(loginParent);
             Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setScene(loginScene);
+            loginScene.getStylesheets().add("/Resource/css/Style.css");
             stage.show();
         }
     }

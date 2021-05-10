@@ -5,14 +5,22 @@ import Java.Model.* ;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.LinkedHashSet;
@@ -37,9 +45,13 @@ public class AdminController extends Controller<Device> {
     @FXML   //nut xoa
     private void deletePressed(ActionEvent event) throws SQLException {
         Device item = super.tableDv.getFocusModel().getFocusedItem();
+
         super.database.Delete(item.getId());
+
         super.deviceList.setAll(super.database.getData());
-        updateSearchResult();
+        super.tableDv.setItems(super.deviceList);
+
+        super.updateSearchResult();
 
     }
     @FXML   //nut cap nhat
@@ -54,6 +66,34 @@ public class AdminController extends Controller<Device> {
     }
     @FXML   // nut cap nhat
     private Button updateButton;
+
+    @FXML
+    private void revenuePressed(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/RevenueScene.fxml")); //load RevenueScene
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("/Resource/css/Style.css");
+        stage.show();
+
+    }
+
+    @FXML
+    private void userInfoPressed(ActionEvent event) throws IOException {
+        Stage stage = new Stage(); //lay stage hien tai
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/UserInfoScene.fxml")); //load RevenueScene
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add("/Resource/css/Style.css");
+        stage.show();
+    }
+
 
     private final Set<Device> changedItem = new LinkedHashSet<>();  //nhung thiet bi dc thay doi
 

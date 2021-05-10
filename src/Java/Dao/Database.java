@@ -2,14 +2,14 @@ package Java.Dao;
 
 import Java.Model.*;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-
 public class Database {
-    private Conn conn;
+    private final Conn conn;
 
     public Database()
     {
@@ -20,15 +20,15 @@ public class Database {
     public ArrayList<Device> getData() throws SQLException{
         String query = "select * from device";
         ResultSet rs = conn.s.executeQuery(query);
-        ArrayList<Device> listDv = new ArrayList<Device>();
+        ArrayList<Device> listDv = new ArrayList<>();
         while (rs.next()) {
-            int id = rs.getInt("id");
+            int id = rs.getInt("Id");
             String ten = rs.getString("Ten");
             String hsx = rs.getString("HangSanXuat");
             String model = rs.getString("Model");
-            Float kichThuoc = rs.getFloat("KichThuoc");
+            float kichThuoc = rs.getFloat("KichThuoc");
             int thoiLuongPin = rs.getInt("ThoiLuongPin");
-            Float doPhanGiai = rs.getFloat("DoPhanGiaiCamera");
+            float doPhanGiai = rs.getFloat("DoPhanGiaiCamera");
             String CPU = rs.getString("CPU");
             int RAM = rs.getInt("RAM");
             String oCung = rs.getString("OCUNG");
@@ -43,6 +43,35 @@ public class Database {
             listDv.add(tempDevice);
         }
         return listDv;
+    }
+
+    public ArrayList<Bill> getBills() throws SQLException {
+        String query = "select * from bill";
+        ResultSet rs = conn.s.executeQuery(query);
+        ArrayList<Bill> listB = new ArrayList<>();
+        while (rs.next()) {
+            int userId = rs.getInt("UserId");
+            int money = rs.getInt("Gia");
+            Date date = rs.getDate("ThoiGian");
+            listB.add(new Bill(userId, date, money));
+        }
+        return listB;
+    }
+
+    public ArrayList<User> getUsers() throws SQLException {
+        String query = "select * from user";
+        ResultSet rs = conn.s.executeQuery(query);
+
+        ArrayList<User> list = new ArrayList<>();
+        while (rs.next()) {
+            int userId = rs.getInt("Id");
+            String name = rs.getString("Ten");
+            String pass = rs.getString("MatKhau");
+            boolean isAdmin = rs.getBoolean("IsAdmin");
+            int daMua = rs.getInt("DaMua");
+            list.add(new User(userId, name, pass, isAdmin, daMua));
+        }
+        return list;
     }
 
     //them CellPhone moi vao database
@@ -62,8 +91,8 @@ public class Database {
 
     //thay doi thiet bi trong database
     public void Modify(Device device) throws SQLException {
-            int id = device.getId();
-            String query = "select * from device where id='"+id+"'";
+            int Id = device.getId();
+            String query = "select * from device where Id='"+Id+"'";
             ResultSet rs = conn.s.executeQuery(query);
             if(rs.next())
             {
@@ -72,13 +101,13 @@ public class Database {
                     String q = "update device set ";
 
                     String ten = device.getTen();
-                    if(ten != "") q+="Ten = '"+ten+"',";
+                    if(!ten.equals("")) q+="Ten = '"+ten+"',";
 
                     String hangsx = device.getHangSanXuat();
-                    if(hangsx != "") q+="HangSanXuat = '"+hangsx+"',";
+                    if(!hangsx.equals("")) q+="HangSanXuat = '"+hangsx+"',";
 
                     String model = device.getModel();
-                    if(model != "") q+="Model = '"+model+"',";
+                    if(!model.equals("")) q+="Model = '"+model+"',";
 
                     float kichthuoc = ((CellPhone) device).getKichThuoc();
                     if(kichthuoc != 0.0f) q+="KichThuoc = '"+kichthuoc+"',";
@@ -96,7 +125,7 @@ public class Database {
                     if(soluong != 0) q+="CONLAI = '"+soluong+"',";
 
                     q = q.substring(0,q.length()-1);
-                    q+=" where id = '"+id+"'";
+                    q+=" where Id = '"+Id+"'";
                     conn.s.executeUpdate(q);
                 }
                 else if (device instanceof Laptop)
@@ -104,22 +133,22 @@ public class Database {
                     String q = "update device set ";
 
                     String ten = device.getTen();
-                    if(ten != "") q+="Ten = '"+ten+"',";
+                    if(!ten.equals("")) q+="Ten = '"+ten+"',";
 
                     String hangsx = device.getHangSanXuat();
-                    if(hangsx != "") q+="HangSanXuat = '"+hangsx+"',";
+                    if(!hangsx.equals("")) q+="HangSanXuat = '"+hangsx+"',";
 
                     String model = device.getModel();
-                    if(model != "") q+="Model = '"+model+"',";
+                    if(!model.equals("")) q+="Model = '"+model+"',";
 
                     String cpu = ((Laptop) device).getCPU();
-                    if(cpu != "") q+="CPU = '"+cpu+"',";
+                    if(!cpu.equals("")) q+="CPU = '"+cpu+"',";
 
                     int ram = ((Laptop) device).getRAM();
                     if(ram != 0) q+="RAM = '"+ram+"',";
 
                     String ocung = ((Laptop) device).getoCung();
-                    if(ocung != "") q+="OCUNG = '"+ocung+"',";
+                    if(!ocung.equals("")) q+="OCUNG = '"+ocung+"',";
 
                     int gia = device.getPrice();
                     if(gia != 0) q+="Gia = '"+gia+"',";
@@ -128,14 +157,14 @@ public class Database {
                     if(soluong != 0) q+="CONLAI = '"+soluong+"',";
 
                     q = q.substring(0,q.length()-1);
-                    q+=" where id = '"+id+"'";
+                    q+=" where Id = '"+Id+"'";
                     conn.s.executeUpdate(q);
                 }
             }
     }
 
-    public void Delete(int id) throws SQLException {
-        String q = "Delete from device where id = '"+id+"'";
+    public void Delete(int Id) throws SQLException {
+        String q = "Delete from device where Id = '"+Id+"'";
         conn.s.executeUpdate(q);
 
     }
