@@ -1,3 +1,5 @@
+//Thanh vien xay dung: An, Dat
+
 package Java.Model;
 
 //Singleton Class

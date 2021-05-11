@@ -1,3 +1,5 @@
+//Thanh vien xay dung: Dat
+
 package Java.Model;
 
 import javafx.beans.property.IntegerProperty;

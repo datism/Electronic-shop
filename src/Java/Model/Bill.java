@@ -1,6 +1,6 @@
-package Java.Model;
+//Thanh vien xay dung: An, Dung
 
-import javafx.beans.property.IntegerProperty;
+package Java.Model;
 
 import java.sql.Date;
 
