@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.*;
 
 public class UserController extends Controller<Device> {
@@ -89,6 +90,8 @@ public class UserController extends Controller<Device> {
         CPUColumn.setCellValueFactory(new PropertyValueFactory<>("CPU"));
         RAMColumn.setCellValueFactory(new PropertyValueFactory<>("RAM"));
         hardDriveColumn.setCellValueFactory(new PropertyValueFactory<>("oCung"));
+
+        priceColumn.setCellFactory(e -> new MoneyCell<>()); //hien thi dau ngan cach hang nghin
 
         kichThuocColumn.setCellFactory(param -> new ColumnCell());
         thoiLuongPinColumn.setCellFactory(param -> new ColumnCell());

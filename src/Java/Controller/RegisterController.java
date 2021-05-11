@@ -33,7 +33,8 @@ public class RegisterController {
             reset();
             return;
         }
-        boolean mode = Login.register(name, pass);
+
+        boolean mode = Login.register(name, pass);      //kiem tra tai khoan da co trong database chua
         if (!mode) {
             AlertBox.display("loi dang ky", "Tai khoan da ton tai");
             reset();

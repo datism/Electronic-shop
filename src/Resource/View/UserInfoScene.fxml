@@ -12,7 +12,7 @@
             <TableColumn fx:id="userIdCol" prefWidth="77.0" text="User ID" />
           <TableColumn fx:id="nameCol" prefWidth="134.0" text="Ten" />
           <TableColumn fx:id="accessibilityCol" prefWidth="165.0" text="Quyen han" />
-            <TableColumn fx:id="expenseCol" prefWidth="170.0" text="Da mua" />
+            <TableColumn fx:id="expenseCol" prefWidth="170.0" text="Da mua(d)" />
         </columns>
       </TableView>
    </children>

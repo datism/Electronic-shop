@@ -52,8 +52,8 @@ public abstract class Controller<T extends Device> implements Initializable {
         searchHandle(this.deviceList);
     }
 
-    protected ObservableList<T> deviceList = FXCollections.observableArrayList(); //mang thiet bi hien thi trong scene
-    protected Database database = new Database();   // lay du lieu hoac thay doi du lieu database
+    protected ObservableList<T> deviceList = FXCollections.observableArrayList();   //mang thiet bi hien thi trong scene
+    protected Database database = new Database();                                   // lay du lieu hoac thay doi du lieu database
 
     //cap nhat ket qua tim kiem
     protected void updateSearchResult() {

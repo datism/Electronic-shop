@@ -11,7 +11,7 @@ import javafx.scene.text.TextFlow;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//Tim kiem tu hoan thanh theo ten va hang san xuat
+//Tim kiem tu hoan thanh theo ten va hang san xuat(Ten hien ben trai. Hang san xuat hien ben phai)
 
 public class AutoCompletionTextField extends TextField {
     //Local variables

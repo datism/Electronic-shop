@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class AddDeviceBox {
 
-    private Database update;
+    private final Database update;
 
     private Stage window = new Stage();
     private GridPane root = new GridPane();

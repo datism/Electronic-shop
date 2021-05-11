@@ -23,7 +23,7 @@ public class LoginController {
     TextField passWord;
     @FXML
     private void registerPressed(ActionEvent event) throws IOException {
-        Parent registerParent = FXMLLoader.load(getClass().getResource("/Resource/View/RegisterScene.fxml"));
+        Parent registerParent = FXMLLoader.load(getClass().getResource("/Resource/View/RegisterScene.fxml"));       //goi scene Register
         Scene registerScene = new Scene(registerParent);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(registerScene);
@@ -37,18 +37,19 @@ public class LoginController {
             AlertBox.display("Loi dang nhap", "ko the dang nhap");
             return;
         }
-        User user = Login.login(name, pass);
+        User user = Login.login(name, pass);    //lay du lieu user tu database
         if (user == null) {
             AlertBox.display("loi dang nhap", "dang nhap ko thanh cong");
             userName.clear();
             passWord.clear();
         }
         else {
-            UserHolder holder = UserHolder.getInstance();
-            holder.setUser(user);
+            UserHolder holder = UserHolder.getInstance();   //class Singleton
+            holder.setUser(user);                           //de trong thoi gian chuong trinh chay chi co 1 user duy nhat
+
             if (!user.isAdmin()) {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/UserScene.fxml"));
+                Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/UserScene.fxml"));     //goi scene User
                 Scene userScene = new Scene(root);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setScene(userScene);
@@ -57,7 +58,7 @@ public class LoginController {
             }
             else {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/AdminScene.fxml"));
+                Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/AdminScene.fxml"));    //goi scene Admin
                 Scene adminScene = new Scene(root);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setScene(adminScene);

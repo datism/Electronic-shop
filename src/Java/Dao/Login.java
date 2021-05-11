@@ -23,6 +23,7 @@ public class Login {
     }
 
     //them user vao databases
+    //neu da ton tai tai khoan trong database thi se tra ve false
     public static boolean register(String name, String pass) throws SQLException {
         Conn conn = new Conn();
         String query = "select * from user where Ten='"+name+"' and MatKhau='"+pass+"'";

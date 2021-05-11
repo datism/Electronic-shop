@@ -16,7 +16,7 @@ public class Database {
         conn = new Conn();
     }
 
-    // lay du lieu tu database
+    // lay du lieu thiet bi tu database
     public ArrayList<Device> getData() throws SQLException{
         String query = "select * from device";
         ResultSet rs = conn.s.executeQuery(query);
@@ -45,6 +45,7 @@ public class Database {
         return listDv;
     }
 
+    //lay du lieu hoa don tu database
     public ArrayList<Bill> getBills() throws SQLException {
         String query = "select * from bill";
         ResultSet rs = conn.s.executeQuery(query);
@@ -58,6 +59,7 @@ public class Database {
         return listB;
     }
 
+    //lay du lieu user tu database
     public ArrayList<User> getUsers() throws SQLException {
         String query = "select * from user";
         ResultSet rs = conn.s.executeQuery(query);
@@ -163,6 +165,7 @@ public class Database {
             }
     }
 
+    //xoa thiet bi khoi database
     public void Delete(int Id) throws SQLException {
         String q = "Delete from device where Id = '"+Id+"'";
         conn.s.executeUpdate(q);

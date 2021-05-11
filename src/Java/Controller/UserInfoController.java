@@ -24,18 +24,18 @@ public class UserInfoController implements Initializable {
     private TableView<User> userTableView;
 
     @FXML
-    private TableColumn<User, Integer> userIdCol;
+    private TableColumn<User, Integer> userIdCol;       //cot User ID
 
     @FXML
-    private TableColumn<User, String> nameCol;
+    private TableColumn<User, String> nameCol;          //cot Ten
 
     @FXML
-    private TableColumn<User, Boolean> accessibilityCol;
+    private TableColumn<User, Boolean> accessibilityCol;    //cot Quyen han
 
     @FXML
-    private TableColumn<User, Integer> expenseCol;
+    private TableColumn<User, Integer> expenseCol;      //cot Da Mua
 
-    Database database = new Database();
+    Database database = new Database();                 //lay du lieu tu database
     private ObservableList<User> list = FXCollections.observableArrayList();
 
     @Override
@@ -53,11 +53,12 @@ public class UserInfoController implements Initializable {
         accessibilityCol.setCellFactory(e -> new accessCell());
 
         expenseCol.setCellValueFactory(new PropertyValueFactory<>("revenue"));
+        expenseCol.setCellFactory(e -> new MoneyCell<>());
 
         userTableView.setItems(list);
     }
 
-    static class accessCell extends TableCell<User, Boolean> {
+    static class accessCell extends TableCell<User, Boolean> {      //cell de hien thi quyen han
         @Override
         protected void updateItem(Boolean aBoolean, boolean b) {
             super.updateItem(aBoolean, b);

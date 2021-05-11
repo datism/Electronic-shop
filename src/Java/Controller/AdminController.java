@@ -18,16 +18,20 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import javafx.util.converter.FloatStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 public class AdminController extends Controller<Device> {
+
     @FXML   //nut them dien thoai
     private void addPhonePressed(ActionEvent event) throws SQLException {
         AddDeviceBox addDeviceBox = new AddDeviceBox();
@@ -35,35 +39,44 @@ public class AdminController extends Controller<Device> {
         super.deviceList.setAll(super.database.getData());  //reset lai table
         updateSearchResult();   //cap nhat ket qua tim kiem
     }
+
     @FXML   //nut them laptop
     private void addLaptopPressed(ActionEvent event) throws SQLException {
         AddDeviceBox addDeviceBox = new AddDeviceBox();
-        addDeviceBox.adddLaptop();
-        super.deviceList.setAll(super.database.getData());
-        updateSearchResult();
+        addDeviceBox.adddLaptop();                          //goi addLapTop thuoc lop AddDeviceBox
+
+        super.deviceList.setAll(super.database.getData());  //cap nhat table
+        super.tableDv.setItems(super.deviceList);
+
+        updateSearchResult();                               //cap nhat ket qua tim kiem
     }
+
     @FXML   //nut xoa
     private void deletePressed(ActionEvent event) throws SQLException {
-        Device item = super.tableDv.getFocusModel().getFocusedItem();
+        Device item = super.tableDv.getFocusModel().getFocusedItem();   //lay item dang dc chon
 
-        super.database.Delete(item.getId());
+        super.database.Delete(item.getId());                            //xoa item tren database
 
-        super.deviceList.setAll(super.database.getData());
+        super.deviceList.setAll(super.database.getData());              //cap nhat table
         super.tableDv.setItems(super.deviceList);
 
         super.updateSearchResult();
 
     }
+
     @FXML   //nut cap nhat
     private void updatePressed(ActionEvent event) throws SQLException {
         for (Device device :
                 this.changedItem) {
 
-            super.database.Modify(device);
+            super.database.Modify(device);      //cap nhat tung thiet bi duoc thay doi
         }
-        super.updateSearchResult();
+
+        super.updateSearchResult();             //cap nhat ket qua tim kiem
+
         this.updateButton.setDisable(true);     //tat nu cap nhat cho den khi co thay doi
     }
+
     @FXML   // nut cap nhat
     private Button updateButton;
 
@@ -73,7 +86,7 @@ public class AdminController extends Controller<Device> {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/RevenueScene.fxml")); //load RevenueScene
 
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.APPLICATION_MODAL);        //ko the tuong tac vs stage chinh
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add("/Resource/css/Style.css");
@@ -85,7 +98,7 @@ public class AdminController extends Controller<Device> {
     private void userInfoPressed(ActionEvent event) throws IOException {
         Stage stage = new Stage(); //lay stage hien tai
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/UserInfoScene.fxml")); //load RevenueScene
+        Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/UserInfoScene.fxml")); //load UserInfoScene
 
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(root);
@@ -129,10 +142,8 @@ public class AdminController extends Controller<Device> {
                                                                                //cot id khong the thay doi
 
         tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
-
         //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/TextFieldTableCell.html#forTableColumn--
         tenColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
         tenColumn.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) t -> {
             Device device = (Device) t.getTableView().getItems().get(
                     t.getTablePosition().getRow());                                         //lay thiet bi dc thay doi
@@ -162,10 +173,21 @@ public class AdminController extends Controller<Device> {
             changedItem.add(device);
         });
 
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
         //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/TextFieldTableCell.html#forTableColumn-javafx.util.StringConverter-
-        priceColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        StringConverter<String> strConvert = new StrConvert();                  //doi dinh dang string sang string (vi EditCustomCell tu dinh nghia)
+        StringConverter<Integer> intConvert = new IntegerStringConverter();     //Intteger sang String va ngc lai
+        StringConverter<Float> floatConvert = new FloatStringConverter();       //Float sang String va ngc lai
+
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        priceColumn.setCellFactory(e -> new TextFieldTableCell<>(intConvert){
+            @Override
+            public void updateItem(Integer integer, boolean b) {
+                super.updateItem(integer, b);
+                if(!b) {
+                    setText(NumberFormat.getIntegerInstance(Locale.GERMAN).format(integer));    //hien dau ngan cach hang nghin
+                }
+            }
+        });
         priceColumn.setOnEditCommit(event -> {
             int price;
             try {
@@ -182,10 +204,6 @@ public class AdminController extends Controller<Device> {
             this.updateButton.setDisable(false);
             changedItem.add(device);
         });
-
-        StringConverter<String> strConvert = new StrConvert();          //doi dinh dang string sang string (vi cai EditCustomCell tu dinh nghia)
-        StringConverter<Integer> intConvert = new IntConvert();         //Intteger sang String va ngc lai
-        StringConverter<Float> floatConvert = new FloatConvert();       //Float sang String va ngc lai
 
         kichThuocColumn.setCellValueFactory(new PropertyValueFactory<>("kichThuoc"));
         kichThuocColumn.setCellFactory(e -> new EditCustomCell(floatConvert));
@@ -291,40 +309,6 @@ public class AdminController extends Controller<Device> {
         @Override
         public String fromString(String s) {
             return s;
-        }
-    }
-
-    private static class IntConvert extends StringConverter<Integer> {
-
-        @Override
-        public String toString(Integer integer) {
-            if(integer == null)
-                return null;
-            return integer.toString();
-        }
-
-        @Override
-        public Integer fromString(String s) {
-            if(s == null)
-                return null;
-            return Integer.parseInt(s);
-        }
-    }
-
-    private static class FloatConvert extends StringConverter<Float> {
-
-        @Override
-        public String toString(Float afloat) {
-            if(afloat == null)
-                return null;
-            return afloat.toString();
-        }
-
-        @Override
-        public Float fromString(String s) {
-            if(s == null)
-                return null;
-            return Float.parseFloat(s);
         }
     }
 

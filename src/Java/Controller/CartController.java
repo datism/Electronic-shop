@@ -20,7 +20,9 @@ import javafx.util.converter.IntegerStringConverter;
 import java.net.URL;
 
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static java.lang.Integer.parseUnsignedInt;
@@ -30,41 +32,41 @@ public class CartController extends Controller<DeviceTf> {
 
     public void setCart(ArrayList<DeviceTf> cart) {     //lay danh sach thiet bi tu UserController
         super.deviceList.setAll(cart);
-        super.updateSearchResult();     //cap nhat ket qua tim kiem
-        updateSum();
+        super.updateSearchResult();                     //cap nhat ket qua tim kiem
+        updateSum();                                    //cap nhat tong tien phai thanh toan
     }
 
     @FXML
-    private void deletePressed(ActionEvent event) {     //event khi nut xoa duoc nhan
-        Device item = tableDv.getFocusModel().getFocusedItem();
+    private void deletePressed(ActionEvent event) {                 //event khi nut xoa duoc nhan
+        Device item = tableDv.getFocusModel().getFocusedItem();     //lay item dang dc chon
 
-        super.deviceList.remove(item);
+        super.deviceList.remove(item);                              //xoa khoi table
         tableDv.setItems(deviceList);
 
-        super.updateSearchResult();                 //cap nha ket qua tim kiem
-        this.updateSum();
+        super.updateSearchResult();                                 //cap nhat ket qua tim kiem
+        this.updateSum();                                           //cap nhat tong tien phai thanh toan
     }
 
     @FXML
-    private void purchasePressed(ActionEvent event) {   //event khi nut thanh toan duoc nhan
-        User user = UserHolder.getInstance().getUser();     //lay user dang dung
+    private void purchasePressed(ActionEvent event) {                               //event khi nut thanh toan duoc nhan
+        User user = UserHolder.getInstance().getUser();                             //lay user dang dung
 
         Purchase purchase = new Purchase(user);
         try {
-            purchase.action((new ArrayList<>(new ArrayList<>(super.deviceList))));
+            purchase.action((new ArrayList<>(new ArrayList<>(super.deviceList))));  //thuc hien thanh toan
         } catch (SQLException a) {
-            a.printStackTrace();
+           AlertBox.display("loi thanh toan", "khong the ket noi vs datbase");
         }
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();    //dong cua so
         stage.close();
     }
 
     @FXML
-    private TableColumn<Device, Integer> soLuongColumn;
+    private TableColumn<Device, Integer> soLuongColumn;     //cot so luong
 
     @FXML
-    private Text SumText;
+    private Text SumText;   //Text Tong
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,7 +99,7 @@ public class CartController extends Controller<DeviceTf> {
         conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));
 
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
-        soLuongColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        soLuongColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));          //co the thay doi cot so luong
         soLuongColumn.setOnEditCommit(event -> {
             int soluong = 0;
             DeviceTf device = (DeviceTf) event.getTableView().getItems().get(
@@ -120,11 +122,11 @@ public class CartController extends Controller<DeviceTf> {
         });
     }
 
-    void updateSum() {
+    void updateSum() {      //cap nhat tong so tien phai thanh toan
         int sum = 0;
         for(DeviceTf deviceTf: deviceList) {
             sum += deviceTf.getSoLuong() * deviceTf.getPrice();
         }
-        SumText.setText(String.valueOf(sum));
+        SumText.setText(NumberFormat.getIntegerInstance(Locale.GERMAN).format(sum) + "d");
     }
 }
