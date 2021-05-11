@@ -1,6 +1,7 @@
 
 .root {
-    -fx-base: #3f474f;
+    /*-fx-base: #3f474f;*/
+    -fx-base: rgb(50, 50, 50);
     -fx-accent: #e7eff7 ;
     -fx-default-button: #7f878f ;
     -fx-focus-color: #efefef;
@@ -13,10 +14,17 @@
             -fx-mid-text-color 60%
     );
     -fx-focused-mark-color : -fx-focused-text-base-color ;
+
+    /* text fields and table rows background */
     -fx-control-inner-background: derive(-fx-base, 35%);
+
+    /* version of -fx-control-inner-background for alternative rows */
     -fx-control-inner-background-alt: -fx-control-inner-background ;
 
+    /* color of non-focused yet selected elements */
+    -fx-selection-bar-non-focused: rgb(50, 50, 50);
 }
+
 
 .text-input:focused {
     -fx-highlight-text-fill: ladder(
@@ -65,7 +73,7 @@ titulo{
 }
 
 .table-view .column-header .label{
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: CENTER;
     -fx-font-weight: none;
 }
 
@@ -86,5 +94,28 @@ titulo{
     -fx-border-color: transparent;
     -fx-table-cell-border-color:transparent;
 }
+
+
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: -fx-base ;
+    -fx-opacity: 0.5;
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-text-fill: lightgray;
+    -fx-background: -fx-faint-focus-color ;
+}
+.menu-item .label{
+    -fx-text-fill: lightgray;
+}
+.menu-item .label:hover{
+    -fx-background: -fx-faint-focus-color ;
+    -fx-text-fill: -fx-focus-color;
+}
+
+
+
 
 
