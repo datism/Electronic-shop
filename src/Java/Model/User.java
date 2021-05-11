@@ -1,3 +1,5 @@
+//Thanh vien xay dung: Dung, Dat
+
 package Java.Model;
 
 public class User {

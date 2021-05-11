@@ -1,3 +1,5 @@
+//Thanh vien xay dung: Dung
+
 package Java.Model;
 
 import javafx.beans.property.*;
