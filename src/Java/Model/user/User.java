@@ -1,32 +1,30 @@
 //Thanh vien xay dung: Dung, Dat
 
-package Java.Model;
+package Java.Model.user;
 
-public class User {
+import Java.Dao.Database;
+
+public abstract class User {
     private int id;
     private String userName;
     private String passWord;
-    private boolean admin;
-    private int revenue;
-    public User()
-    {
+    private boolean isAdmin;
+    private final Database database;
 
-    }
-
-    public User(int id, String userName, String passWord, boolean admin, int revenue) {
+    public User(int id, String userName, String passWord, boolean isAdmin) {
         this.id = id;
         this.userName = userName;
         this.passWord = passWord;
-        this.admin = admin;
-        this.revenue = revenue;
+        this.isAdmin = isAdmin;
+        database = new Database();
     }
 
-    public int getRevenue() {
-        return revenue;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    public void setRevenue(int revenue) {
-        this.revenue = revenue;
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public int getId() {
@@ -53,11 +51,8 @@ public class User {
         this.passWord = passWord;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public Database getDatabase() {
+        return database;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 }

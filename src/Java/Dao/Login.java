@@ -2,7 +2,9 @@
 
 package Java.Dao;
 
-import Java.Model.User;
+import Java.Model.user.Admin;
+import Java.Model.user.Customer;
+import Java.Model.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +21,10 @@ public class Login {
         {
             boolean isAdmin = rs.getBoolean("IsAdmin");
             int daMua = rs.getInt("DaMua");
-            user = new User(rs.getInt("Id"), name, pass, isAdmin, daMua);
+            if(isAdmin)
+                user = new Admin(rs.getInt("Id"), name, pass);
+            else
+                user = new Customer(rs.getInt("Id"), name, pass, daMua);
         }
         return user;
     }

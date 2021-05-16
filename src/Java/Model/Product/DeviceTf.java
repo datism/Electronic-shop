@@ -1,12 +1,9 @@
 //Thanh vien xay dung: Dat
 
-package Java.Model;
+package Java.Model.Product;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.TextField;
-
-import static java.lang.Integer.parseInt;
 
 // du lieu de bieu dien tren cartScene
 public class DeviceTf extends Device{
@@ -28,4 +25,5 @@ public class DeviceTf extends Device{
     public void setSoLuong(int soLuong) {
         this.soLuong.set(soLuong);
     }
+
 }

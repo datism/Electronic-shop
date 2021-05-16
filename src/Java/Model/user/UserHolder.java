@@ -1,6 +1,6 @@
 //Thanh vien xay dung: An, Dat
 
-package Java.Model;
+package Java.Model.user;
 
 //Singleton Class
 //luon chi co 1 user xuyen suot chuong trinh

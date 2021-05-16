@@ -3,21 +3,19 @@
 package Java.Controller;
 
 import Java.Dao.Database;
-import Java.Model.Bill;
-import Java.Model.User;
+import Java.Model.user.Admin;
+import Java.Model.user.User;
+import Java.Model.user.UserHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Cell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -37,13 +35,14 @@ public class UserInfoController implements Initializable {
     @FXML
     private TableColumn<User, Integer> expenseCol;      //cot Da Mua
 
-    Database database = new Database();                 //lay du lieu tu database
+    private Admin admin;                 //lay du lieu tu database
     private ObservableList<User> list = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        admin = (Admin) UserHolder.getInstance().getUser();
         try {
-            list.setAll(database.getUsers());
+            list.setAll(admin.getUserInfo());
         } catch (SQLException throwables) {
             AlertBox.display("loi du lieu", "khong the lay du lieu tu database");
         }

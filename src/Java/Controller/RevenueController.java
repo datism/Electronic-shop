@@ -3,8 +3,9 @@
 package Java.Controller;
 
 import Java.Dao.Database;
-import Java.Model.Bill;
-import javafx.beans.Observable;
+import Java.Model.user.Admin;
+import Java.Model.user.Bill;
+import Java.Model.user.UserHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,13 +39,15 @@ public class RevenueController implements Initializable {
     @FXML
     private Text revenueText;                           //text tong doanh thu
 
-    Database database = new Database();                 //lay du lieu tu database
+    private Admin admin;
     private ObservableList<Bill> list = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        admin = (Admin) UserHolder.getInstance().getUser();
+
         try {
-            list.setAll(database.getBills());
+            list.setAll(admin.getBills());
         } catch (SQLException throwables) {
             AlertBox.display("loi du lieu", "khong the lay bill tren database");
         }

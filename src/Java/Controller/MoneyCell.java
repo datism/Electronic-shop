@@ -2,7 +2,6 @@
 
 package Java.Controller;
 
-import Java.Model.Device;
 import javafx.scene.control.TableCell;
 
 import java.text.NumberFormat;
@@ -15,6 +14,8 @@ public class MoneyCell<T> extends TableCell<T, Integer> {       //cell de the hi
         if (!b) {
             if(integer != null)
                 setText(NumberFormat.getIntegerInstance(Locale.GERMAN).format(integer));    //format integer thanh dang ###.###.###
+            else
+                setText("NULL");
         }
         else
             setText(null);

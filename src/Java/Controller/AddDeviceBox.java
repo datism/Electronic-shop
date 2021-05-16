@@ -3,6 +3,8 @@
 package Java.Controller;
 
 import Java.Dao.Database;
+import Java.Model.user.Admin;
+import Java.Model.user.UserHolder;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +18,7 @@ import java.sql.SQLException;
 
 public class AddDeviceBox {
 
-    private final Database update;
+    private final Admin admin;
 
     private Stage window = new Stage();
     private GridPane root = new GridPane();
@@ -63,10 +65,10 @@ public class AddDeviceBox {
         root.setVgap(10);
         root.setPadding(new Insets(50));
 
-        this.update = new Database();
+        this.admin = (Admin) UserHolder.getInstance().getUser();
     }
 
-    public void adddPhone() {
+    public void addPhone() {
         this.p1Label = new Label("Kich thuoc:");
         this.p2Label = new Label("Pin:");
         this.p3Label = new Label("Do phan giai camera:");
@@ -96,9 +98,9 @@ public class AddDeviceBox {
                 return;
             }
             try {
-                update.AddPhone(name, hsx, model, size, battery, rs, price, quantity);
+                admin.AddPhone(name, hsx, model, size, battery, rs, price, quantity);
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                AlertBox.display("loi database", "khong the cap nhat du lieu");
             }
             window.close();
         });
@@ -108,7 +110,7 @@ public class AddDeviceBox {
         window.showAndWait();
     }
 
-    public void adddLaptop() {
+    public void addLaptop() {
         this.p1Label = new Label("Cpu:");
         this.p2Label = new Label("Ram:");
         this.p3Label = new Label("O cung:");
@@ -136,9 +138,9 @@ public class AddDeviceBox {
                 return;
             }
             try {
-                update.AddLatop(name, hsx, model, cpu, ram, oCung, price, quantity);
+                admin.AddLaptop(name, hsx, model, cpu, ram, oCung, price, quantity);
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                AlertBox.display("loi database", "khong the cap nhat du lieu");
             }
             window.close();
         });

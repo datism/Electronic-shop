@@ -1,6 +1,6 @@
 //Thanh vien xay dung: An, Dung
 
-package Java.Model;
+package Java.Model.user;
 
 import java.sql.Date;
 

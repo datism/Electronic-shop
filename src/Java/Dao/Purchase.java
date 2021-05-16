@@ -2,23 +2,23 @@
 
 package Java.Dao;
 
-import Java.Model.Bill;
-import Java.Model.DeviceTf;
-import Java.Model.User;
+import Java.Model.user.Bill;
+import Java.Model.Product.DeviceTf;
+import Java.Model.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Purchase {
-    private User user;
+    private int userId;
     private Bill bill;
     private Conn conn;
 
-    public Purchase(User user)
+    public Purchase(int userId)
     {
-        this.user = user;
-        bill = new Bill(user.getId());
+        this.userId = userId;
+        bill = new Bill(userId);
         conn = new Conn();
     }
 
@@ -41,19 +41,17 @@ public class Purchase {
                 conn.s.executeUpdate(q);
             }
         }
-        int idUser = user.getId();
         int gia = bill.getMoney();
 
-        String queryBill = "insert into bill(UserId, Gia, ThoiGian) values ('" + idUser + "', '" + gia +"',CURDATE())";
+        String queryBill = "insert into bill(UserId, Gia, ThoiGian) values ('" + userId + "', '" + gia +"',CURDATE())";
         conn.s.executeUpdate(queryBill);
 
-        String query = "select * from user where Id='" + idUser + "'";
+        String query = "select * from user where Id='" + userId + "'";
         ResultSet rs = conn.s.executeQuery(query);
         if(rs.next()) {
             int daMua = rs.getInt("DaMua");
             daMua += gia;
-            System.out.println(daMua);
-            String queryUser = "update user set DaMua = '" + daMua + "' where Id = '" + idUser + "'";
+            String queryUser = "update user set DaMua = '" + daMua + "' where Id = '" + userId + "'";
             conn.s.executeUpdate(queryUser);
         }
 

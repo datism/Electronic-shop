@@ -2,7 +2,13 @@
 
 package Java.Dao;
 
-import Java.Model.*;
+import Java.Model.Product.CellPhone;
+import Java.Model.Product.Device;
+import Java.Model.Product.Laptop;
+import Java.Model.user.Admin;
+import Java.Model.user.Bill;
+import Java.Model.user.Customer;
+import Java.Model.user.User;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -73,7 +79,10 @@ public class Database {
             String pass = rs.getString("MatKhau");
             boolean isAdmin = rs.getBoolean("IsAdmin");
             int daMua = rs.getInt("DaMua");
-            list.add(new User(userId, name, pass, isAdmin, daMua));
+            if(isAdmin)
+                list.add(new Admin(userId, name, pass));
+            else
+                list.add(new Customer(userId, name, pass, daMua));
         }
         return list;
     }

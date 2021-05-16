@@ -2,17 +2,17 @@
 
 package Java.Controller;
 
-import Java.Model.* ;
-
+import Java.Model.Product.CellPhone;
+import Java.Model.Product.Device;
+import Java.Model.Product.Laptop;
+import Java.Model.user.Admin;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -37,17 +37,17 @@ public class AdminController extends Controller<Device> {
     @FXML   //nut them dien thoai
     private void addPhonePressed(ActionEvent event) throws SQLException {
         AddDeviceBox addDeviceBox = new AddDeviceBox();
-        addDeviceBox.adddPhone();
-        super.deviceList.setAll(super.database.getData());  //reset lai table
-        updateSearchResult();   //cap nhat ket qua tim kiem
+        addDeviceBox.addPhone();
+        super.deviceList.setAll(admin.getDevices());                //reset lai table
+        updateSearchResult();                                       //cap nhat ket qua tim kiem
     }
 
     @FXML   //nut them laptop
     private void addLaptopPressed(ActionEvent event) throws SQLException {
         AddDeviceBox addDeviceBox = new AddDeviceBox();
-        addDeviceBox.adddLaptop();                          //goi addLapTop thuoc lop AddDeviceBox
+        addDeviceBox.addLaptop();                           //goi addLapTop thuoc lop AddDeviceBox
 
-        super.deviceList.setAll(super.database.getData());  //cap nhat table
+        super.deviceList.setAll(admin.getDevices());        //cap nhat table
         super.tableDv.setItems(super.deviceList);
 
         updateSearchResult();                               //cap nhat ket qua tim kiem
@@ -57,9 +57,9 @@ public class AdminController extends Controller<Device> {
     private void deletePressed(ActionEvent event) throws SQLException {
         Device item = super.tableDv.getFocusModel().getFocusedItem();   //lay item dang dc chon
 
-        super.database.Delete(item.getId());                            //xoa item tren database
+        admin.Delete(item);                                             //xoa item tren database
 
-        super.deviceList.setAll(super.database.getData());              //cap nhat table
+        super.deviceList.setAll(admin.getDevices());                    //cap nhat table
         super.tableDv.setItems(super.deviceList);
 
         super.updateSearchResult();
@@ -71,7 +71,7 @@ public class AdminController extends Controller<Device> {
         for (Device device :
                 this.changedItem) {
 
-            super.database.Modify(device);      //cap nhat tung thiet bi duoc thay doi
+            admin.Modify(device);               //cap nhat tung thiet bi duoc thay doi
         }
 
         super.updateSearchResult();             //cap nhat ket qua tim kiem
@@ -88,7 +88,7 @@ public class AdminController extends Controller<Device> {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/RevenueScene.fxml")); //load RevenueScene
 
-        stage.initModality(Modality.APPLICATION_MODAL);        //ko the tuong tac vs stage chinh
+        stage.initModality(Modality.APPLICATION_MODAL);                                                     //ko the tuong tac vs stage chinh
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add("/Resource/css/Style.css");
@@ -111,24 +111,26 @@ public class AdminController extends Controller<Device> {
 
 
     private final Set<Device> changedItem = new LinkedHashSet<>();  //nhung thiet bi dc thay doi
+    private Admin admin;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        admin = (Admin) super.user;
         try {
-            super.deviceList.addAll(database.getData());    //lay du lieu tu database
+            super.deviceList.addAll(admin.getDevices());    //lay du lieu tu database
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        columnInit();           //khoi tao cot
+        columnInit();                                       //khoi tao cot
 
-        super.tableDv.setItems(deviceList);     //khoi tao du lieu de table hien thi
-        super.tableDv.setEditable(true);        //cho phep thay doi gia tri trong bang
+        super.tableDv.setItems(deviceList);                 //khoi tao du lieu de table hien thi
+        super.tableDv.setEditable(true);                    //cho phep thay doi gia tri trong bang
 
-        super.updateSearchResult();             //cap nhat ket qua tim kiem
+        super.updateSearchResult();                          //cap nhat ket qua tim kiem
 
-        super.searchText.setOnKeyPressed(keyEvent -> {  //hien thi ket qua tim kiem khi nhan dau cach
+        super.searchText.setOnKeyPressed(keyEvent -> {      //hien thi ket qua tim kiem khi nhan dau cach
             if(keyEvent.getCode() == KeyCode.ENTER) {
                 try {
                     super.searchHandle(deviceList);
@@ -280,7 +282,7 @@ public class AdminController extends Controller<Device> {
 
     }
 
-    //neu thiet bi khong co thuoc tinh thi se hien thi la "Null" va khong cho thay doi
+    //neu thiet bi khong co thuoc tinh thi se hien thi la "NUll" va khong cho thay doi
     private static class EditCustomCell<T> extends TextFieldTableCell<Device, T> {
         public EditCustomCell(StringConverter<T> stringConverter) {
             super(stringConverter);
@@ -290,7 +292,7 @@ public class AdminController extends Controller<Device> {
             super.updateItem(obj, empty);
             if (!empty) {
                 if (obj == null) {
-                    setText("Null");
+                    setText("NULL");
                     setEditable(false);
                 }
                 else

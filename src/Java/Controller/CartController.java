@@ -2,16 +2,17 @@
 
 package Java.Controller;
 
-import Java.Model.*;
 import Java.Dao.*;
 
-import Java.Model.User;
-import Java.Model.UserHolder;
+import Java.Model.Product.Device;
+import Java.Model.Product.DeviceTf;
+import Java.Model.user.Customer;
+import Java.Model.user.User;
+import Java.Model.user.UserHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
@@ -32,15 +33,11 @@ import static java.lang.Integer.parseUnsignedInt;
 
 public class CartController extends Controller<DeviceTf> {
 
-    public void setCart(ArrayList<DeviceTf> cart) {     //lay danh sach thiet bi tu UserController
-        super.deviceList.setAll(cart);
-        super.updateSearchResult();                     //cap nhat ket qua tim kiem
-        updateSum();                                    //cap nhat tong tien phai thanh toan
-    }
-
     @FXML
     private void deletePressed(ActionEvent event) {                 //event khi nut xoa duoc nhan
         Device item = tableDv.getFocusModel().getFocusedItem();     //lay item dang dc chon
+
+        this.customer.getCart().remove(item);                       //xoa khoi gio hang
 
         super.deviceList.remove(item);                              //xoa khoi table
         tableDv.setItems(deviceList);
@@ -50,12 +47,9 @@ public class CartController extends Controller<DeviceTf> {
     }
 
     @FXML
-    private void purchasePressed(ActionEvent event) {                               //event khi nut thanh toan duoc nhan
-        User user = UserHolder.getInstance().getUser();                             //lay user dang dung
-
-        Purchase purchase = new Purchase(user);
+    private void purchasePressed(ActionEvent event) {                               //event khi nut thanh toan duoc nhan         //lay user dang dung
         try {
-            purchase.action((new ArrayList<>(new ArrayList<>(super.deviceList))));  //thuc hien thanh toan
+            customer.purchase();                                                    //thuc hien thanh toan
         } catch (SQLException a) {
            AlertBox.display("loi thanh toan", "khong the ket noi vs datbase");
         }
@@ -70,8 +64,16 @@ public class CartController extends Controller<DeviceTf> {
     @FXML
     private Text SumText;   //Text Tong
 
+    private Customer customer;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        customer = (Customer) UserHolder.getInstance().getUser();
+        super.deviceList.setAll(customer.getCart());
+
+        super.updateSearchResult();                     //cap nhat ket qua tim kiem
+        updateSum();                                    //cap nhat tong tien phai thanh toan
 
         this.columnInit();
 

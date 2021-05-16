@@ -2,8 +2,10 @@
 
 package Java.Controller;
 
-import Java.Model.*;
-
+import Java.Model.Product.Device;
+import Java.Model.Product.DeviceTf;
+import Java.Model.user.Customer;
+import Java.Model.user.UserHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +20,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.*;
 
 public class UserController extends Controller<Device> {
@@ -27,7 +28,7 @@ public class UserController extends Controller<Device> {
     private void addToCartButtonPressed(ActionEvent event) {
         Device item = tableDv.getFocusModel().getFocusedItem();
 
-        this.cart.add(new DeviceTf(item, 1));
+        customer.getCart().add(new DeviceTf(item, 1));
 
         this.deviceList.remove(item);
         tableDv.setItems(deviceList);
@@ -43,22 +44,21 @@ public class UserController extends Controller<Device> {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/CartScene.fxml")); //load CartScene
 
-        CartController cartController = loader.getController();
-        cartController.setCart(cart);                               // thiet lap danh sach thiet bi cho cartController
-
         Scene cartScene = new Scene(root);
         stage.setScene(cartScene);
         cartScene.getStylesheets().add("/Resource/css/Style.css");
         stage.show();
     }
 
-    // mang luu cac thiet bi trong gio hang
-    private ArrayList<DeviceTf> cart = new ArrayList<>();
+
+    private Customer customer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        customer = (Customer) UserHolder.getInstance().getUser();
+
         try {
-            deviceList.addAll(database.getData());
+            deviceList.addAll(customer.getDevices());
         } catch (SQLException e) {
             AlertBox.display("loi du lieu", "ko the lay du lieu tu database");
         }

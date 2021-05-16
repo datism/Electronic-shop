@@ -3,8 +3,9 @@
 package Java.Controller;
 
 import Java.Dao.Login;
-import Java.Model.User;
-import Java.Model.UserHolder;
+import Java.Model.user.Customer;
+import Java.Model.user.User;
+import Java.Model.user.UserHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import javafx.util.converter.CurrencyStringConverter;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -49,7 +51,7 @@ public class LoginController {
             UserHolder holder = UserHolder.getInstance();   //class Singleton
             holder.setUser(user);                           //de trong thoi gian chuong trinh chay chi co 1 user duy nhat
 
-            if (!user.isAdmin()) {
+            if (user instanceof Customer) {
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = loader.load(getClass().getResourceAsStream("/Resource/View/UserScene.fxml"));     //goi scene User
                 Scene userScene = new Scene(root);

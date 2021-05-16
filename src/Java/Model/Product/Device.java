@@ -1,6 +1,6 @@
 //Thanh vien xay dung: Dung
 
-package Java.Model;
+package Java.Model.Product;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

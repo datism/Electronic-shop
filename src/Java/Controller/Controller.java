@@ -4,8 +4,10 @@ package Java.Controller;
 
 import Java.AutoCompletionTextField;
 import Java.Dao.Database;
-import Java.Model.Device;
+import Java.Model.Product.Device;
 
+import Java.Model.user.User;
+import Java.Model.user.UserHolder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,8 +56,15 @@ public abstract class Controller<T extends Device> implements Initializable {
         searchHandle(this.deviceList);
     }
 
-    protected ObservableList<T> deviceList = FXCollections.observableArrayList();   //mang thiet bi hien thi trong scene
-    protected Database database = new Database();                                   // lay du lieu hoac thay doi du lieu database
+    protected ObservableList<T> deviceList;   //mang thiet bi hien thi trong scene
+    protected User user;              // lay du lieu hoac thay doi du lieu database
+
+    Controller() {
+        deviceList = FXCollections.observableArrayList();
+        user = UserHolder.getInstance().getUser();
+    }
+
+
 
     //cap nhat ket qua tim kiem
     protected void updateSearchResult() {
