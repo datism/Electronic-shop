@@ -125,6 +125,8 @@ public class AdminController extends Controller<Device> {
 
         columnInit();                                       //khoi tao cot
 
+
+
         super.tableDv.setItems(deviceList);                 //khoi tao du lieu de table hien thi
         super.tableDv.setEditable(true);                    //cho phep thay doi gia tri trong bang
 
@@ -142,7 +144,7 @@ public class AdminController extends Controller<Device> {
 
     }
 
-    void columnInit() {
+    void columnInit(){
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     //khoi tao gia tri cho cot id
                                                                                //cot id khong the thay doi
 
@@ -193,29 +195,43 @@ public class AdminController extends Controller<Device> {
                 }
             }
         });
+
         priceColumn.setOnEditCommit(event -> {
             int price;
             try {
                 price = event.getNewValue();
-                if (price < 0)
-                    throw new NumberFormatException();
+                if (price <= 0)
+                    throw new NumberFormatException("gia tien phai lon hon 0");                 //kiem soat input
             } catch (NumberFormatException e) {
-                AlertBox.display("sai dinh dang", "gia tien phai la so nguyen >= 0");
-                return;
+                AlertBox.display("loi dinh dang", e.getMessage());
+                price = event.getOldValue();
             }
-            Device device = event.getTableView().getItems().get(
+            Device device = event.getTableView().getItems().get(                                //lay thiet bi duoc chon
                     event.getTablePosition().getRow());
-            device.setPrice(price);
+            device.setPrice(price);                                                             //thay doi thuoc tinh
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), device);     //cap nhat giao dien(neu khong thi no se hien thi gia tri nhap sai)
             this.updateButton.setDisable(false);
             changedItem.add(device);
         });
+
 
         kichThuocColumn.setCellValueFactory(new PropertyValueFactory<>("kichThuoc"));
         kichThuocColumn.setCellFactory(e -> new EditCustomCell(floatConvert));
         kichThuocColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
-            phone.setKichThuoc(event.getNewValue());
+
+            float kichThuoc;
+            try {
+                kichThuoc = event.getNewValue();
+                if(kichThuoc <= (float) 0)
+                    throw new NumberFormatException("kich thuoc phai lon hon 0");
+            } catch (NumberFormatException e) {
+                AlertBox.display("loi dinh dang", e.getMessage());
+                kichThuoc = event.getOldValue();
+            }
+            phone.setKichThuoc(kichThuoc);
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), phone);
             this.updateButton.setDisable(false);
             changedItem.add(phone);
         });
@@ -225,7 +241,17 @@ public class AdminController extends Controller<Device> {
         thoiLuongPinColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
-            phone.setThoiLuongPin(event.getNewValue());
+            int thoiLuongPin;
+            try {
+                thoiLuongPin = event.getNewValue();
+                if(thoiLuongPin <= 0)
+                    throw new NumberFormatException("thoi luong pin phai lon hon 0");
+            } catch (NumberFormatException e) {
+                AlertBox.display("Loi dinh dang", e.getMessage());
+                thoiLuongPin = event.getOldValue();
+            }
+            phone.setThoiLuongPin(thoiLuongPin);
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), phone);
             this.updateButton.setDisable(false);
             changedItem.add(phone);
         });
@@ -235,7 +261,17 @@ public class AdminController extends Controller<Device> {
         doPhanGiaiCameraColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
-            phone.setDoPhanGiaiCamera(event.getNewValue());
+            float dpg;
+            try {
+                dpg = event.getNewValue();
+                if(dpg <= (float) 0)
+                    throw new NumberFormatException("do phan giai phai lon hon 0");
+            } catch (NumberFormatException e) {
+                AlertBox.display("loi dinh dang", e.getMessage());
+                dpg = event.getOldValue();
+            }
+            phone.setDoPhanGiaiCamera(dpg);
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), phone);
             this.updateButton.setDisable(false);
             changedItem.add(phone);
         });
@@ -255,7 +291,17 @@ public class AdminController extends Controller<Device> {
         RAMColumn.setOnEditCommit(event -> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
-            laptop.setRAM(event.getNewValue());
+            int ram;
+            try {
+                ram = event.getNewValue();
+                if(ram <= 0)
+                    throw new NumberFormatException("ran phai lon hon 0");
+            } catch (NumberFormatException e) {
+                AlertBox.display("Loi dinh dang", e.getMessage());
+                ram = event.getOldValue();
+            }
+            laptop.setRAM(ram);
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), laptop);
             this.updateButton.setDisable(false);
             changedItem.add(laptop);
         });
@@ -275,7 +321,17 @@ public class AdminController extends Controller<Device> {
         conLaiColumn.setOnEditCommit(event -> {
             Device device = event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
-            device.setConLai(event.getNewValue());
+            int conLai;
+            try {
+                conLai = event.getNewValue();
+                if(conLai <= 0)
+                    throw new NumberFormatException("Con lai phai lon hon 0");
+            } catch (NumberFormatException e) {
+                AlertBox.display("Loi dinh dang", e.getMessage());
+                conLai = event.getOldValue();
+            }
+            device.setConLai(conLai);
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), device);
             this.updateButton.setDisable(false);
             changedItem.add(device);
         });
@@ -303,5 +359,4 @@ public class AdminController extends Controller<Device> {
                 setText(null);
         }
     }
-
 }

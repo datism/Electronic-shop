@@ -19,6 +19,6 @@ public class CustomFloatStringConverter extends FloatStringConverter {
         } catch (NumberFormatException e) {
             AlertBox.display("loi dinh dang", "Input yeu cau la so thuc");
         }
-        return (float) 0;
+        return (float) 1;
     }
 }
