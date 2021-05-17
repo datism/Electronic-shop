@@ -1,6 +1,7 @@
+//Thanh vien xay dung: Dung, An
+
 package Java.Model.user;
 
-import Java.Model.Product.CellPhone;
 import Java.Model.Product.Device;
 
 import java.sql.SQLException;
@@ -11,9 +12,6 @@ public class Admin extends User{
         super(id, userName, passWord, true);
     }
 
-    public ArrayList<Device> getDevices() throws SQLException {
-        return super.getDatabase().getData();
-    }
 
     public ArrayList<Bill> getBills() throws SQLException {
         return super.getDatabase().getBills();

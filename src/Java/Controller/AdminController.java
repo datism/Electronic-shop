@@ -2,6 +2,9 @@
 
 package Java.Controller;
 
+import Java.Controller.Converter.CustomFloatStringConverter;
+import Java.Controller.Converter.CustomIntegerStringConverter;
+import Java.Controller.Converter.CustomStringStringConverter;
 import Java.Model.Product.CellPhone;
 import Java.Model.Product.Device;
 import Java.Model.Product.Laptop;
@@ -27,10 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.util.LinkedHashSet;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class AdminController extends Controller<Device> {
 
@@ -139,6 +139,7 @@ public class AdminController extends Controller<Device> {
                 }
             }
         });
+
     }
 
     void columnInit() {
@@ -178,9 +179,9 @@ public class AdminController extends Controller<Device> {
         });
 
         //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/TextFieldTableCell.html#forTableColumn-javafx.util.StringConverter-
-        StringConverter<String> strConvert = new StrConvert();                  //doi dinh dang string sang string (vi EditCustomCell tu dinh nghia)
-        StringConverter<Integer> intConvert = new IntegerStringConverter();     //Intteger sang String va ngc lai
-        StringConverter<Float> floatConvert = new FloatStringConverter();       //Float sang String va ngc lai
+        StringConverter<String> strConvert = new CustomStringStringConverter();       //doi dinh dang string sang string (vi EditCustomCell tu dinh nghia)
+        StringConverter<Integer> intConvert = new CustomIntegerStringConverter();     //Intteger sang String va ngc lai
+        StringConverter<Float> floatConvert = new CustomFloatStringConverter();       //Float sang String va ngc lai
 
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         priceColumn.setCellFactory(e -> new TextFieldTableCell<>(intConvert){
@@ -300,19 +301,6 @@ public class AdminController extends Controller<Device> {
             }
             else
                 setText(null);
-        }
-    }
-
-    private static class StrConvert extends StringConverter<String> {
-
-        @Override
-        public String toString(String s) {
-            return s;
-        }
-
-        @Override
-        public String fromString(String s) {
-            return s;
         }
     }
 

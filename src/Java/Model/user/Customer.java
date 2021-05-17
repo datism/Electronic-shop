@@ -1,3 +1,5 @@
+//Thanh vien xay dung: Dung, An, Dat
+
 package Java.Model.user;
 
 import Java.Dao.Purchase;
@@ -9,18 +11,14 @@ import java.util.ArrayList;
 
 public class Customer extends User{
     private int revenue;
-    private ArrayList<DeviceTf> cart;
-    private Purchase purchase;
+    private final ArrayList<DeviceTf> cart;
+    private final Purchase purchase;
 
     public Customer(int id, String userName, String passWord, int revenue) {
         super(id, userName, passWord, false);
         this.revenue = revenue;
         this.cart = new ArrayList<>();
         this.purchase = new Purchase(id);
-    }
-
-    public ArrayList<Device> getDevices() throws SQLException {
-        return super.getDatabase().getData();
     }
 
     public void purchase() throws SQLException {

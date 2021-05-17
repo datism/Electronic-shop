@@ -34,14 +34,19 @@ public class LoginController {
         stage.show();
     }
     @FXML
-    public void loginPressed(ActionEvent actionEvent) throws SQLException, IOException {
+    public void loginPressed(ActionEvent actionEvent) throws IOException {
         String name = userName.getText();
         String pass = passWord.getText();
         if (name.isEmpty() || pass.isEmpty()) {
             AlertBox.display("Loi dang nhap", "ko the dang nhap");
             return;
         }
-        User user = Login.login(name, pass);    //lay du lieu user tu database
+        User user = null;    //lay du lieu user tu database
+        try {
+            user = Login.login(name, pass);
+        } catch (SQLException throwables) {
+            AlertBox.display("Loi dang nhap", "Khong the lay du lieu tu database");
+        }
         if (user == null) {
             AlertBox.display("loi dang nhap", "dang nhap ko thanh cong");
             userName.clear();

@@ -3,6 +3,10 @@
 package Java.Model.user;
 
 import Java.Dao.Database;
+import Java.Model.Product.Device;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public abstract class User {
     private int id;
@@ -53,6 +57,10 @@ public abstract class User {
 
     public Database getDatabase() {
         return database;
+    }
+
+    public ArrayList<Device> getDevices() throws SQLException {
+        return getDatabase().getData();
     }
 
 }

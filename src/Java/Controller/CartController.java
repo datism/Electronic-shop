@@ -2,6 +2,7 @@
 
 package Java.Controller;
 
+import Java.Controller.Converter.CustomIntegerStringConverter;
 import Java.Dao.*;
 
 import Java.Model.Product.Device;
@@ -10,6 +11,7 @@ import Java.Model.user.Customer;
 import Java.Model.user.User;
 import Java.Model.user.UserHolder;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -103,25 +105,26 @@ public class CartController extends Controller<DeviceTf> {
         conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));
 
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
-        soLuongColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));          //co the thay doi cot so luong
+        soLuongColumn.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));          //co the thay doi cot so luong
         soLuongColumn.setOnEditCommit(event -> {
-            int soluong = 0;
+            int soluong;
             DeviceTf device = (DeviceTf) event.getTableView().getItems().get(
                     event.getTablePosition().getRow());
             try {
                 soluong = event.getNewValue();
-                if (soluong < 0)
+                if (soluong < 1)
                     throw new NumberFormatException();
                 if (soluong > device.getConLai())
                     throw new Exception();
             } catch (NumberFormatException e) {
-                AlertBox.display("sai dinh dang", "so luong phai la so nguyen >= 0");
-                return;
+                AlertBox.display("sai dinh dang", "so luong phai la so nguyen > 0");
+                soluong = event.getOldValue();
             } catch (Exception e) {
-                AlertBox.display("sai so luong", "so luong phai be hon so san pham con lai");
-                return;
+                AlertBox.display("sai so luong", "so luong phai be hon so san pham con lai");;
+                soluong = event.getOldValue();
             }
             device.setSoLuong(soluong);
+            event.getTableView().getItems().set(event.getTablePosition().getRow(), device);
             updateSum();
         });
     }
@@ -133,4 +136,6 @@ public class CartController extends Controller<DeviceTf> {
         }
         SumText.setText(NumberFormat.getIntegerInstance(Locale.GERMAN).format(sum) + "d");
     }
+
+
 }
