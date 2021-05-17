@@ -102,6 +102,7 @@ public class CartController extends Controller<DeviceTf> {
         hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
         modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        priceColumn.setCellFactory(e -> new MoneyCell<>());
         conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));
 
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("soLuong"));

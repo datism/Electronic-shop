@@ -7,7 +7,7 @@ import javafx.scene.control.TableCell;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class MoneyCell<T> extends TableCell<T, Integer> {       //cell de the hien tien
+public class MoneyCell<T> extends TableCell<T, Integer> {       //cell de hien thi tien
     @Override
     protected void updateItem(Integer integer, boolean b) {
         super.updateItem(integer, b);

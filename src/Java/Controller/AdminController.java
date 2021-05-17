@@ -74,6 +74,8 @@ public class AdminController extends Controller<Device> {
             admin.Modify(device);               //cap nhat tung thiet bi duoc thay doi
         }
 
+        this.changedItem.clear();               //xoa cac thiet bi khoi danh sach cac thiet bi dc thay thois
+
         super.updateSearchResult();             //cap nhat ket qua tim kiem
 
         this.updateButton.setDisable(true);     //tat nu cap nhat cho den khi co thay doi
@@ -157,6 +159,7 @@ public class AdminController extends Controller<Device> {
             device.setTen((String) t.getNewValue());                                        //thay doi gia tri
             this.updateButton.setDisable(false);                                            //enable nut cap nhat
             changedItem.add(device);                                                        //them thiet bi vao danh sach thay doi
+            updateSearchResult();                                                           //cap nhat ket qua tim kiem
         });
 
         hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
@@ -167,6 +170,7 @@ public class AdminController extends Controller<Device> {
             device.setHangSanXuat(event.getNewValue());
             this.updateButton.setDisable(false);
             changedItem.add(device);
+            updateSearchResult();
         });
 
 
