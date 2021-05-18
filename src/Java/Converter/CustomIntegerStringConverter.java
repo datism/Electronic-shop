@@ -1,4 +1,4 @@
-package Java.Controller.Converter;
+package Java.Converter;
 
 import Java.Controller.AlertBox;
 import javafx.util.converter.IntegerStringConverter;

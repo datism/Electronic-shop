@@ -1,4 +1,4 @@
-package Java.Controller.Converter;
+package Java.Converter;
 
 import javafx.util.StringConverter;
 

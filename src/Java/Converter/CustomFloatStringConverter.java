@@ -1,8 +1,7 @@
-package Java.Controller.Converter;
+package Java.Converter;
 
 import Java.Controller.AlertBox;
 import javafx.util.converter.FloatStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 public class CustomFloatStringConverter extends FloatStringConverter {
     private final FloatStringConverter converter = new FloatStringConverter();

@@ -2,16 +2,13 @@
 
 package Java.Controller;
 
-import Java.Controller.Converter.CustomIntegerStringConverter;
-import Java.Dao.*;
+import Java.Converter.CustomIntegerStringConverter;
 
 import Java.Model.Product.Device;
 import Java.Model.Product.DeviceTf;
 import Java.Model.user.Customer;
-import Java.Model.user.User;
 import Java.Model.user.UserHolder;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -20,13 +17,11 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

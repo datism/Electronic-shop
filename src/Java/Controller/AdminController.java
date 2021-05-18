@@ -2,9 +2,9 @@
 
 package Java.Controller;
 
-import Java.Controller.Converter.CustomFloatStringConverter;
-import Java.Controller.Converter.CustomIntegerStringConverter;
-import Java.Controller.Converter.CustomStringStringConverter;
+import Java.Converter.CustomFloatStringConverter;
+import Java.Converter.CustomIntegerStringConverter;
+import Java.Converter.CustomStringStringConverter;
 import Java.Model.Product.CellPhone;
 import Java.Model.Product.Device;
 import Java.Model.Product.Laptop;
@@ -23,8 +23,6 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.FloatStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
