@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Customer extends User{
-    private int revenue;
+    private int spent;
     private final ArrayList<DeviceTf> cart;
     private final Purchase purchase;
 
-    public Customer(int id, String userName, String passWord, int revenue) {
+    public Customer(int id, String userName, String passWord, int spent) {
         super(id, userName, passWord, false);
-        this.revenue = revenue;
+        this.spent = spent;
         this.cart = new ArrayList<>();
         this.purchase = new Purchase(id);
     }
@@ -25,12 +25,12 @@ public class Customer extends User{
         this.purchase.action(cart);
     }
 
-    public int getRevenue() {
-        return revenue;
+    public int getSpent() {
+        return spent;
     }
 
-    public void setRevenue(int revenue) {
-        this.revenue = revenue;
+    public void setSpent(int spent) {
+        this.spent = spent;
     }
 
     public ArrayList<DeviceTf> getCart() {

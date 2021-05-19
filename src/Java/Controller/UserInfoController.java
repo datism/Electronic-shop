@@ -53,7 +53,7 @@ public class UserInfoController implements Initializable {
         accessibilityCol.setCellValueFactory(new PropertyValueFactory<>("admin"));
         accessibilityCol.setCellFactory(e -> new accessCell());
 
-        expenseCol.setCellValueFactory(new PropertyValueFactory<>("revenue"));
+        expenseCol.setCellValueFactory(new PropertyValueFactory<>("spent"));
         expenseCol.setCellFactory(e -> new MoneyCell<>());
 
         userTableView.setItems(list);
