@@ -4,26 +4,27 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <?import Java.AutoCompletionTextField?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.UserController">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.Controller.UserController">
    <children>
       <TableView fx:id="tableDv" layoutX="39.0" layoutY="149.0">
         <columns>
             <TableColumn fx:id="idColumn" prefWidth="59.0" text="ID" />
-            <TableColumn fx:id="tenColumn" prefWidth="145.0" text="Ten" />
-            <TableColumn fx:id="hangSanXuatColumn" prefWidth="209.0" text="Hang san xuat" />
-            <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="164.0" text="Model" />
-            <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="143.0" text="Gia(d)" />
-            <TableColumn fx:id="kichThuocColumn" minWidth="0.0" prefWidth="133.0" text="Kich thuoc(inch)" />
-            <TableColumn fx:id="doPhanGiaiCameraColumn" minWidth="0.0" prefWidth="191.0" text="Do phan giai camera(MP)" />
-            <TableColumn fx:id="thoiLuongPinColumn" minWidth="0.0" prefWidth="160.0" text="Thoi luong pin(mAh)" />
-            <TableColumn fx:id="CPUColumn" minWidth="0.0" prefWidth="156.0" text="Cpu" />
-            <TableColumn fx:id="RAMColumn" minWidth="0.0" prefWidth="125.0" text="Ram(GB)" />
-            <TableColumn fx:id="hardDriveColumn" minWidth="0.0" prefWidth="134.0" text="O cung(GB)" />
+            <TableColumn fx:id="tenColumn" prefWidth="115.0" text="Ten" />
+            <TableColumn fx:id="hangSanXuatColumn" prefWidth="179.0" text="Hang san xuat" />
+            <TableColumn fx:id="modelColumn" minWidth="0.0" prefWidth="140.0" text="Model" />
+            <TableColumn fx:id="priceColumn" minWidth="0.0" prefWidth="130.0" text="Gia(d)" />
+            <TableColumn fx:id="kichThuocColumn" minWidth="0.0" prefWidth="154.0" text="Kich thuoc(inch)" />
+            <TableColumn fx:id="doPhanGiaiCameraColumn" minWidth="0.0" prefWidth="196.0" text="Do phan giai camera(MP)" />
+            <TableColumn fx:id="thoiLuongPinColumn" minWidth="0.0" prefWidth="170.0" text="Thoi luong pin(mAh)" />
+            <TableColumn fx:id="CPUColumn" minWidth="0.0" prefWidth="105.0" text="Cpu" />
+            <TableColumn fx:id="RAMColumn" minWidth="0.0" prefWidth="106.0" text="Ram(GB)" />
+            <TableColumn fx:id="hardDriveColumn" minWidth="0.0" prefWidth="149.0" text="O cung(GB)" />
         </columns>
       </TableView>
        <AutoCompletionTextField fx:id="searchText" layoutX="692.0" layoutY="53.0" prefHeight="33.0" prefWidth="322.0" promptText="Search" />
@@ -33,7 +34,7 @@
          <font>
             <Font size="19.0" />
          </font></Button>
-      <Button fx:id="" layoutX="1513.0" layoutY="47.0" mnemonicParsing="false" onAction="#cartButtonPressed" prefHeight="60.0" prefWidth="138.0" text="Gio hang">
+      <Button fx:id="" layoutX="1406.0" layoutY="40.0" mnemonicParsing="false" onAction="#cartButtonPressed" prefHeight="60.0" prefWidth="138.0" text="Gio hang">
          <font>
             <Font size="22.0" />
          </font></Button>
