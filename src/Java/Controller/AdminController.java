@@ -9,6 +9,8 @@ import Java.Model.Product.CellPhone;
 import Java.Model.Product.Device;
 import Java.Model.Product.Laptop;
 import Java.Model.user.Admin;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -143,12 +145,11 @@ public class AdminController extends Controller<Device> {
         });
 
     }
-
+    @Override
     void columnInit(){
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));     //khoi tao gia tri cho cot id
-                                                                               //cot id khong the thay doi
+        super.columnInit();
+        //cot id khong the thay doi
 
-        tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
         //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/cell/TextFieldTableCell.html#forTableColumn--
         tenColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tenColumn.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) t -> {
@@ -160,7 +161,6 @@ public class AdminController extends Controller<Device> {
             updateSearchResult();                                                           //cap nhat ket qua tim kiem
         });
 
-        hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
         hangSanXuatColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         hangSanXuatColumn.setOnEditCommit(event -> {
             Device device = event.getTableView().getItems().get(
@@ -172,7 +172,6 @@ public class AdminController extends Controller<Device> {
         });
 
 
-        modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         modelColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         modelColumn.setOnEditCommit(event -> {
             Device device = event.getTableView().getItems().get(
@@ -187,7 +186,6 @@ public class AdminController extends Controller<Device> {
         StringConverter<Integer> intConvert = new CustomIntegerStringConverter();     //Intteger sang String va ngc lai
         StringConverter<Float> floatConvert = new CustomFloatStringConverter();       //Float sang String va ngc lai
 
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         priceColumn.setCellFactory(e -> new TextFieldTableCell<>(intConvert){
             @Override
             public void updateItem(Integer integer, boolean b) {
@@ -217,7 +215,6 @@ public class AdminController extends Controller<Device> {
         });
 
 
-        kichThuocColumn.setCellValueFactory(new PropertyValueFactory<>("kichThuoc"));
         kichThuocColumn.setCellFactory(e -> new EditCustomCell(floatConvert));
         kichThuocColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
@@ -238,7 +235,6 @@ public class AdminController extends Controller<Device> {
             changedItem.add(phone);
         });
 
-        thoiLuongPinColumn.setCellValueFactory(new PropertyValueFactory<>("thoiLuongPin"));
         thoiLuongPinColumn.setCellFactory(e -> new EditCustomCell<>(intConvert));
         thoiLuongPinColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
@@ -258,7 +254,6 @@ public class AdminController extends Controller<Device> {
             changedItem.add(phone);
         });
 
-        doPhanGiaiCameraColumn.setCellValueFactory(new PropertyValueFactory<>("doPhanGiaiCamera"));
         doPhanGiaiCameraColumn.setCellFactory(e -> new EditCustomCell<>(floatConvert));
         doPhanGiaiCameraColumn.setOnEditCommit(event -> {
             CellPhone phone = (CellPhone) event.getTableView().getItems().get(
@@ -278,7 +273,6 @@ public class AdminController extends Controller<Device> {
             changedItem.add(phone);
         });
 
-        CPUColumn.setCellValueFactory(new PropertyValueFactory<>("CPU"));
         CPUColumn.setCellFactory(e -> new EditCustomCell<>(strConvert));
         CPUColumn.setOnEditCommit(event -> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
@@ -288,7 +282,6 @@ public class AdminController extends Controller<Device> {
             changedItem.add(laptop);
         });
 
-        RAMColumn.setCellValueFactory(new PropertyValueFactory<>("RAM"));
         RAMColumn.setCellFactory(e -> new EditCustomCell<>(intConvert));
         RAMColumn.setOnEditCommit(event -> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
@@ -308,7 +301,6 @@ public class AdminController extends Controller<Device> {
             changedItem.add(laptop);
         });
 
-        hardDriveColumn.setCellValueFactory(new PropertyValueFactory<>("oCung"));
         hardDriveColumn.setCellFactory(e -> new EditCustomCell<>(strConvert));
         hardDriveColumn.setOnEditCommit(event -> {
             Laptop laptop = (Laptop) event.getTableView().getItems().get(
@@ -318,7 +310,6 @@ public class AdminController extends Controller<Device> {
             changedItem.add(laptop);
         });
 
-        conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));
         conLaiColumn.setCellFactory(e -> new EditCustomCell<>(intConvert));
         conLaiColumn.setOnEditCommit(event -> {
             Device device = event.getTableView().getItems().get(

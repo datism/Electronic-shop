@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static java.lang.Integer.parseUnsignedInt;
+import static java.lang.Integer.sum;
 
 
 public class CartController extends Controller<DeviceTf> {
@@ -92,13 +93,9 @@ public class CartController extends Controller<DeviceTf> {
 
     @Override
     void columnInit() {     // khoi tao du lieu cho cac cot
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
-        hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
-        modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        super.columnInit();
+
         priceColumn.setCellFactory(e -> new MoneyCell<>());
-        conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));
 
         soLuongColumn.setCellValueFactory(new PropertyValueFactory<>("soLuong"));
         soLuongColumn.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));          //co the thay doi cot so luong

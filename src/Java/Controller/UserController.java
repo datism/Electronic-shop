@@ -80,21 +80,11 @@ public class UserController extends Controller<Device> {
        });
     }
 
+    @Override
     void columnInit() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));
-        hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));
-        modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        kichThuocColumn.setCellValueFactory(new PropertyValueFactory<>("kichThuoc"));
-        thoiLuongPinColumn.setCellValueFactory(new PropertyValueFactory<>("thoiLuongPin"));
-        doPhanGiaiCameraColumn.setCellValueFactory(new PropertyValueFactory<>("doPhanGiaiCamera"));
-        CPUColumn.setCellValueFactory(new PropertyValueFactory<>("CPU"));
-        RAMColumn.setCellValueFactory(new PropertyValueFactory<>("RAM"));
-        hardDriveColumn.setCellValueFactory(new PropertyValueFactory<>("oCung"));
+        super.columnInit();
 
         priceColumn.setCellFactory(e -> new MoneyCell<>()); //hien thi dau ngan cach hang nghin
-
         kichThuocColumn.setCellFactory(param -> new ColumnCell());
         thoiLuongPinColumn.setCellFactory(param -> new ColumnCell());
         doPhanGiaiCameraColumn.setCellFactory(param -> new ColumnCell());
