@@ -4,8 +4,10 @@ package Java.Controller;
 
 import Java.Dao.Database;
 import Java.Model.user.Admin;
+import Java.Model.user.Customer;
 import Java.Model.user.User;
 import Java.Model.user.UserHolder;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,7 +55,12 @@ public class UserInfoController implements Initializable {
         accessibilityCol.setCellValueFactory(new PropertyValueFactory<>("admin"));
         accessibilityCol.setCellFactory(e -> new accessCell());
 
-        expenseCol.setCellValueFactory(new PropertyValueFactory<>("spent"));
+        expenseCol.setCellValueFactory(data -> {
+            User user = data.getValue();
+            if (user instanceof Customer)
+                return new SimpleObjectProperty<>(((Customer) user).getSpent());
+            return null;
+        });
         expenseCol.setCellFactory(e -> new MoneyCell<>());
 
         userTableView.setItems(list);

@@ -4,10 +4,13 @@ package Java.Controller;
 
 import Java.AutoCompletionTextField;
 import Java.Dao.Database;
+import Java.Model.Product.CellPhone;
 import Java.Model.Product.Device;
 
+import Java.Model.Product.Laptop;
 import Java.Model.user.User;
 import Java.Model.user.UserHolder;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -102,6 +106,63 @@ public abstract class Controller<T extends Device> implements Initializable {
         tableDv.setItems(deviceList2);
     }
 
-    abstract void columnInit(); //cac lop con deu phai khoi tao cot
+    void columnInit() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));                             //khoi tao gia tri cho cot id
+        tenColumn.setCellValueFactory(new PropertyValueFactory<>("ten"));                           //khoi tao gia tri cho cot ten
+        hangSanXuatColumn.setCellValueFactory(new PropertyValueFactory<>("hangSanXuat"));           //khoi tao gia tri cho cot hangSangXuat
+        modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));                       //khoi tao gia tri cho cot model
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));                       //khoi tao gia tri cho cot price
+        if(conLaiColumn != null)
+            conLaiColumn.setCellValueFactory(new PropertyValueFactory<>("conLai"));                 //khoi tao gia tri cho cot conLai
+
+        if(kichThuocColumn != null)
+        kichThuocColumn.setCellValueFactory(data -> {                                                  //khoi tao gia tri cho cot kichThuoc
+            Device device = data.getValue();
+            if (device instanceof CellPhone)
+                return ((CellPhone) device).kichThuocProperty().asObject();
+            return null;
+        });
+
+        if(thoiLuongPinColumn != null)
+        thoiLuongPinColumn.setCellValueFactory(data -> {                                                //khoi tao gia tri cho cot thoiLuongPin
+            Device device = data.getValue();
+            if (device instanceof CellPhone)
+                return ((CellPhone) device).thoiLuongPinProperty().asObject();
+            return null;
+        });
+
+        if(doPhanGiaiCameraColumn != null)
+        doPhanGiaiCameraColumn.setCellValueFactory(data -> {                                             //khoi tao gia tri cho cot doPhanGiaiCamera
+            Device device = data.getValue();
+            if (device instanceof CellPhone)
+                return ((CellPhone) device).doPhanGiaiCameraProperty().asObject();
+            return null;
+        });
+
+        if(CPUColumn != null)
+        CPUColumn.setCellValueFactory(data -> {                                                            //khoi tao gia tri cho cot CPU
+            Device device = data.getValue();
+            if (device instanceof Laptop)
+                return new SimpleStringProperty(((Laptop) device).getCPU());
+            return null;
+        });
+
+        if(RAMColumn != null)
+        RAMColumn.setCellValueFactory(data -> {                                                             //khoi tao gia tri cho cot RAM
+            Device device = data.getValue();
+            if (device instanceof Laptop)
+                return ((Laptop) device).RAMProperty().asObject();
+            return null;
+        });
+
+        if(hardDriveColumn != null)                                                                         //khoi tao gia tri cho cot Ocung
+        hardDriveColumn.setCellValueFactory(data -> {
+            Device device = data.getValue();
+            if (device instanceof Laptop)
+                return new SimpleStringProperty(((Laptop) device).getCPU());
+            return null;
+        });
+    };
+
 
 }
